@@ -37,7 +37,7 @@ public class Onload : MonoBehaviour {
 		/* overall controller which recognizes if notes have been hit?
          * we need to decide whether or not we want every single note object to be created during the preprocessing phase,
          * or if they should be created dynamically.
-         * As a result, we need to deide whether this overall controller script handles the timing events, or
+         * As a result, we need to decide whether this overall controller script handles the timing events, or
          * if the beats themselves handle their own timing and subsequent destruction. 
          */
 	}
