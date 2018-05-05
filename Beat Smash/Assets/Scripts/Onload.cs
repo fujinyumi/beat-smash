@@ -3,42 +3,86 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Lane { D, F, Space, J, K };
+public enum BeatType { Hit, Held };
 
 public class Onload : MonoBehaviour {
 
+    /* MEMBER VARIABLES */
     //hit intervals, in milliseconds - may need to be tweaked later when playtested
     public const int INTERVAL_GREAT = 10;
     public const int INTERVAL_GOOD = 20;
     public const int INTERVAL_BAD = 30;
 
+    public const int LOOKAHEAD_INTERVAL = 1000;
+
+    //score trackers
     private int score;
     private int totalGreats;
     private int totalGoods;
     private int totalBads;
     private int totalMisses;
 
-    public int getScore() { return score; }
-    public int getGreats() { return totalGreats; }
-    public int getGoods() { return totalGoods; }
-    public int getBads() { return totalBads; }
-    public int getMisses() { return totalMisses; }
+    //our ordered map, which will be populated during preprocessing
+    SortedDictionary<int, List<BeatInfo>> upcomingBeats;
+    //enumerator for this dictionary that will progressively advance.
+    SortedDictionary<int, List<BeatInfo>>.Enumerator upcomingBeatsEnumerator;
+
+    /* "GETTER" Functions */
+
+    public int GetScore() { return score; }
+    public int GetGreats() { return totalGreats; }
+    public int GetGoods() { return totalGoods; }
+    public int GetBads() { return totalBads; }
+    public int GetMisses() { return totalMisses; }
+
+    /* "SETTER" Functions
+     * NOTE: Update() functions of Unity objects are run in SEQUENCE on a single core unless multithreading is explicitly stated.
+     * Thus there is no need for mutexes or locks.
+     */
+
+     public void UpdateScore(int increase)
+    {
+        score += increase;
+    }
+
+    public void AddGreat() { totalGreats++; }
+    public void AddGood() { totalGoods++; }
+    public void AddBad() { totalBads++; }
+    public void AddMiss() { totalMisses++; }
+
+    /* UNITY FUNCTIONS */
 
     // Use this for initialization
     void Start () {
+        //member variable initialization
         score = totalGreats = totalGoods = totalBads = totalMisses = 0;
+        upcomingBeats = new SortedDictionary<int, List<BeatInfo>>();
+        upcomingBeatsEnumerator = upcomingBeats.GetEnumerator();
+        //move to first position
+        upcomingBeatsEnumerator.MoveNext();
 
-        //perform preprocessing
-        /* i'm going to leave this empty for now */
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		/* overall controller which recognizes if notes have been hit?
-         * we need to decide whether or not we want every single note object to be created during the preprocessing phase,
-         * or if they should be created dynamically.
-         * As a result, we need to decide whether this overall controller script handles the timing events, or
-         * if the beats themselves handle their own timing and subsequent destruction. 
+        /* FOR MICHELLE AND OTHER PREPROCESSORS
+         * Insert preprocessing script here.
+         * INPUT: Read the beatmap file in (using System.IO.File?)
+         * OUTPUT: Using an ordered map (implemented as a red-black tree, so O(logn) access, search, insertion, deletion)
+         * of type < int, List<BeatInfo> > where int corresponds to the time offset (in ms) and BeatInfo is a class containing target info, 
+         * process the beatmap file and consolidate beats with the same ms offset into the List of each key-value pair
          */
-	}
+
+        /* TO EVENTUALLY REMOVE: HARD CODED DATA */
+        List<BeatInfo> listToInsert = new List<BeatInfo>();
+        listToInsert.Add(new BeatInfo(Lane.D, BeatType.Hit, 510));
+        List<BeatInfo> listToInsert2 = new List<BeatInfo>();
+        listToInsert.Add(new BeatInfo(Lane.D, BeatType.Hit, 1195));
+        List<BeatInfo> listToInsert3 = new List<BeatInfo>();
+        listToInsert.Add(new BeatInfo(Lane.D, BeatType.Hit, 1820));
+        upcomingBeats.Add(510, listToInsert);
+        upcomingBeats.Add(1195, listToInsert2);
+        upcomingBeats.Add(1820, listToInsert3);
+    }
+
+    // Update is called once per frame
+    void Update () {
+
+    }
 }

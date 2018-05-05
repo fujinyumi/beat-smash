@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* please initialize inputKey in Unity before use. */
 public class InputReaction : MonoBehaviour {
 
     public string inputKey;
@@ -10,6 +11,9 @@ public class InputReaction : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         isActive = false;
+
+        //set name of this game object
+        gameObject.name = inputKey;
     }
 	
 	// Update is called once per frame
