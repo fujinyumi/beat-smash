@@ -83,6 +83,10 @@ public class Onload : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        float songPos = SongPosition.instance.getSongPos();
+        if(upcomingBeatsEnumerator.Current.Key - songPos < LOOKAHEAD_INTERVAL)
+        {
 
+        }
     }
 }
