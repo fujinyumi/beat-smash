@@ -22,6 +22,8 @@ public class Onload : MonoBehaviour {
     private int totalBads;
     private int totalMisses;
 
+    private bool beatsDone;
+
     //our ordered map, which will be populated during preprocessing
     SortedDictionary<int, List<BeatInfo>> upcomingBeats;
     //enumerator for this dictionary that will progressively advance.
@@ -56,10 +58,11 @@ public class Onload : MonoBehaviour {
     void Start () {
         //member variable initialization
         score = totalGreats = totalGoods = totalBads = totalMisses = 0;
+        beatsDone = false;
         upcomingBeats = new SortedDictionary<int, List<BeatInfo>>();
         upcomingBeatsEnumerator = upcomingBeats.GetEnumerator();
         //move to first position
-        upcomingBeatsEnumerator.MoveNext();
+        if (!upcomingBeatsEnumerator.MoveNext()) beatsDone = true;
 
         /* FOR MICHELLE AND OTHER PREPROCESSORS
          * Insert preprocessing script here.
@@ -84,9 +87,20 @@ public class Onload : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         float songPos = SongPosition.instance.getSongPos();
-        if(upcomingBeatsEnumerator.Current.Key - songPos < LOOKAHEAD_INTERVAL)
-        {
 
+        if (!beatsDone)
+        {
+            if (upcomingBeatsEnumerator.Current.Key - songPos < LOOKAHEAD_INTERVAL)
+            {
+                foreach (BeatInfo bi in upcomingBeatsEnumerator.Current.Value)
+                {
+                    bi.CreateBeatTarget();
+                }
+                if (!upcomingBeatsEnumerator.MoveNext())
+                {
+                    beatsDone = true;
+                }
+            }
         }
     }
 }

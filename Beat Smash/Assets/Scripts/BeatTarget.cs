@@ -66,5 +66,10 @@ public class BeatTarget : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	}
+        float songPos = SongPosition.instance.getSongPos();
+        if(m_beatinfo.GetOffset() - songPos < onscreenInterval)
+        {
+         //interpolation! Yay!!!   
+        }
+    }
 }
