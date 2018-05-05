@@ -9,6 +9,7 @@ public class BeatInfo {
     private Lane m_lane;
     private BeatType m_type;
     private int m_offset;
+    private int m_duration; // Set to default = 1 ms if not a held beat, logic implemented in Onload.cs
 
     //reference to corresponding BeatTarget - necessary?
     private BeatTarget m_beattarget;
@@ -17,13 +18,24 @@ public class BeatInfo {
     public Lane GetLane() { return m_lane; }
     public BeatType GetBeatType() { return m_type; }
     public int GetOffset() { return m_offset; }
+    public int GetBeatDuration() { return m_duration; }
 
-    //constructor
-    public BeatInfo(Lane lane, BeatType type, int offset)
+    // //constructor - Hit type
+    // public BeatInfo(Lane lane, BeatType type, int offset)
+    // {
+    //     m_lane = lane;
+    //     m_type = type;
+    //     m_offset = offset;
+    //     m_duration = 1;
+    // }
+
+    //constructor - Held type
+    public BeatInfo(Lane lane, BeatType type, int offset, int duration)
     {
         m_lane = lane;
         m_type = type;
         m_offset = offset;
+        m_duration = duration;
     }
 
     //create the corresponding GUI component - BeatTarget - when called
