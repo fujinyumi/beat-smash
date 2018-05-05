@@ -101,6 +101,10 @@ public class BeatTarget : MonoBehaviour {
                new Vector3(m_x, BOTTOM_Y, -1),
                 (songPos - m_beatinfo.GetOffset())  / onscreenInterval
                );
+            if (transform.position.y == BOTTOM_Y)
+            {
+                Destroy(gameObject);
+            }
 
         }
     }
