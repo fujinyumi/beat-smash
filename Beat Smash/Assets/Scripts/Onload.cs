@@ -16,7 +16,6 @@ public class Onload : MonoBehaviour {
     public const int LOOKAHEAD_INTERVAL = 1000;
 
     //score trackers
-    private int score;
     private int totalGreats;
     private int totalGoods;
     private int totalBads;
@@ -29,7 +28,6 @@ public class Onload : MonoBehaviour {
 
     /* "GETTER" Functions */
 
-    public int GetScore() { return score; }
     public int GetGreats() { return totalGreats; }
     public int GetGoods() { return totalGoods; }
     public int GetBads() { return totalBads; }
@@ -39,11 +37,6 @@ public class Onload : MonoBehaviour {
      * NOTE: Update() functions of Unity objects are run in SEQUENCE on a single core unless multithreading is explicitly stated.
      * Thus there is no need for mutexes or locks.
      */
-
-     public void UpdateScore(int increase)
-    {
-        score += increase;
-    }
 
     public void AddGreat() { totalGreats++; }
     public void AddGood() { totalGoods++; }
@@ -55,7 +48,7 @@ public class Onload : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //member variable initialization
-        score = totalGreats = totalGoods = totalBads = totalMisses = 0;
+        totalGreats = totalGoods = totalBads = totalMisses = 0;
         upcomingBeats = new SortedDictionary<int, List<BeatInfo>>();
         upcomingBeatsEnumerator = upcomingBeats.GetEnumerator();
         //move to first position
