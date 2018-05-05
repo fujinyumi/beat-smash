@@ -5,8 +5,8 @@ using UnityEngine;
 /* WARNING: DO NOT INSTANTIATE THIS PREFAB BY HAND IN UNITY!!!!!! Unless if you like Null Pointer Exceptions */
 public class BeatTarget : MonoBehaviour {
 
-    public static int onscreenInterval = 5000;
-    public const float STARTING_Y = 15;
+    public static float onscreenInterval = SongPosition.TIME_BEFORE_AUDIO_START*1000;
+    public const float STARTING_Y = 6;
     public const float ENDING_Y = -2.5f;
     public const float OFFSCREEN_Y = 100;
 
@@ -65,20 +65,26 @@ public class BeatTarget : MonoBehaviour {
             Debug.Log("Couldn't find correct lane");
         }
 
-        transform.position = new Vector3(m_x, OFFSCREEN_Y, transform.position.z);
+        transform.position = new Vector3(m_x, OFFSCREEN_Y, 5);
 
-        Debug.Log(m_beatinfo.GetOffset());
     }
 	
 	// Update is called once per frame
 	void Update () {
         float songPos = SongPosition.instance.getSongPos();
-        if(m_beatinfo.GetOffset() - songPos < onscreenInterval)
+
+        //if (m_beatinfo.GetOffset() > songPos)
+        //{
+        //    Debug.Log("Diff is " + (m_beatinfo.GetOffset() - songPos));
+        //    Debug.Log("Overall calc is " + (onscreenInterval - (m_beatinfo.GetOffset() - songPos)));
+        //}
+
+        if (m_beatinfo.GetOffset() - songPos <= onscreenInterval)
         {
             //interpolation! Yay!!! 
-         transform.position = Vector2.Lerp(
-             new Vector3(m_x, STARTING_Y, 1),
-             new Vector3(m_x, ENDING_Y, 1),
+         transform.position = Vector3.Lerp(
+             new Vector3(m_x, STARTING_Y, -1),
+             new Vector3(m_x, ENDING_Y, -1),
              (onscreenInterval - (m_beatinfo.GetOffset() - songPos)) / onscreenInterval
              );
         }

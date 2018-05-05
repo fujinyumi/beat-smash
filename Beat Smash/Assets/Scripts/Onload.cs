@@ -13,7 +13,7 @@ public class Onload : MonoBehaviour {
     public const int INTERVAL_GOOD = 20;
     public const int INTERVAL_BAD = 30;
 
-    public const int LOOKAHEAD_INTERVAL = 1000;
+    public const float LOOKAHEAD_INTERVAL = SongPosition.TIME_BEFORE_AUDIO_START*1000;
 
     //score trackers
     private int score;
@@ -82,7 +82,7 @@ public class Onload : MonoBehaviour {
 
         upcomingBeatsEnumerator = upcomingBeats.GetEnumerator();
         //move to first position
-        if (!upcomingBeatsEnumerator.MoveNext()) { Debug.Log("wtf"); beatsDone = true; }
+        if (!upcomingBeatsEnumerator.MoveNext()) beatsDone = true;
 
         /*while (!upcomingBeatsEnumerator.MoveNext())
         {
