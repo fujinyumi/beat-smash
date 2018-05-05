@@ -63,6 +63,6 @@ public class SongPosition : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //convert to milliseconds
-        currentSongPosition = (float)(AudioSettings.dspTime - initialDspTime) * 1000;
+        currentSongPosition = (float)(AudioSettings.dspTime - initialDspTime) * 1000 - TIME_BEFORE_AUDIO_START*1000;
 	}
 }

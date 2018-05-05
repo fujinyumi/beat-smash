@@ -60,9 +60,6 @@ public class Onload : MonoBehaviour {
         score = totalGreats = totalGoods = totalBads = totalMisses = 0;
         beatsDone = false;
         upcomingBeats = new SortedDictionary<int, List<BeatInfo>>();
-        upcomingBeatsEnumerator = upcomingBeats.GetEnumerator();
-        //move to first position
-        if (!upcomingBeatsEnumerator.MoveNext()) beatsDone = true;
 
         /* FOR MICHELLE AND OTHER PREPROCESSORS
          * Insert preprocessing script here.
@@ -76,18 +73,29 @@ public class Onload : MonoBehaviour {
         List<BeatInfo> listToInsert = new List<BeatInfo>();
         listToInsert.Add(new BeatInfo(Lane.D, BeatType.Hit, 510));
         List<BeatInfo> listToInsert2 = new List<BeatInfo>();
-        listToInsert.Add(new BeatInfo(Lane.D, BeatType.Hit, 1195));
+        listToInsert.Add(new BeatInfo(Lane.F, BeatType.Hit, 1195));
         List<BeatInfo> listToInsert3 = new List<BeatInfo>();
-        listToInsert.Add(new BeatInfo(Lane.D, BeatType.Hit, 1820));
+        listToInsert.Add(new BeatInfo(Lane.J, BeatType.Hit, 1820));
         upcomingBeats.Add(510, listToInsert);
         upcomingBeats.Add(1195, listToInsert2);
         upcomingBeats.Add(1820, listToInsert3);
+
+        upcomingBeatsEnumerator = upcomingBeats.GetEnumerator();
+        //move to first position
+        if (!upcomingBeatsEnumerator.MoveNext()) { Debug.Log("wtf"); beatsDone = true; }
+
+        /*while (!upcomingBeatsEnumerator.MoveNext())
+        {
+            foreach (BeatInfo bi in upcomingBeatsEnumerator.Current.Value)
+            {
+                bi.CreateBeatTarget();
+            }
+        } */
     }
 
     // Update is called once per frame
     void Update () {
         float songPos = SongPosition.instance.getSongPos();
-
         if (!beatsDone)
         {
             if (upcomingBeatsEnumerator.Current.Key - songPos < LOOKAHEAD_INTERVAL)
