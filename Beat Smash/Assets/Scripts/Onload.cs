@@ -13,7 +13,7 @@ public class Onload : MonoBehaviour {
     public const int INTERVAL_GOOD = 20;
     public const int INTERVAL_BAD = 30;
 
-    public const int LOOKAHEAD_INTERVAL = 1000;
+    public const float LOOKAHEAD_INTERVAL = SongPosition.TIME_BEFORE_AUDIO_START*1000;
 
     //score trackers
     private int score;
@@ -21,6 +21,8 @@ public class Onload : MonoBehaviour {
     private int totalGoods;
     private int totalBads;
     private int totalMisses;
+
+    private bool beatsDone;
 
     //our ordered map, which will be populated during preprocessing
     SortedDictionary<int, List<BeatInfo>> upcomingBeats;
@@ -56,10 +58,8 @@ public class Onload : MonoBehaviour {
     void Start () {
         //member variable initialization
         score = totalGreats = totalGoods = totalBads = totalMisses = 0;
+        beatsDone = false;
         upcomingBeats = new SortedDictionary<int, List<BeatInfo>>();
-        upcomingBeatsEnumerator = upcomingBeats.GetEnumerator();
-        //move to first position
-        upcomingBeatsEnumerator.MoveNext();
 
         /* FOR MICHELLE AND OTHER PREPROCESSORS
          * Insert preprocessing script here.
@@ -73,16 +73,42 @@ public class Onload : MonoBehaviour {
         List<BeatInfo> listToInsert = new List<BeatInfo>();
         listToInsert.Add(new BeatInfo(Lane.D, BeatType.Hit, 510));
         List<BeatInfo> listToInsert2 = new List<BeatInfo>();
-        listToInsert.Add(new BeatInfo(Lane.D, BeatType.Hit, 1195));
+        listToInsert.Add(new BeatInfo(Lane.F, BeatType.Hit, 1195));
         List<BeatInfo> listToInsert3 = new List<BeatInfo>();
-        listToInsert.Add(new BeatInfo(Lane.D, BeatType.Hit, 1820));
+        listToInsert.Add(new BeatInfo(Lane.J, BeatType.Hit, 1820));
         upcomingBeats.Add(510, listToInsert);
         upcomingBeats.Add(1195, listToInsert2);
         upcomingBeats.Add(1820, listToInsert3);
+
+        upcomingBeatsEnumerator = upcomingBeats.GetEnumerator();
+        //move to first position
+        if (!upcomingBeatsEnumerator.MoveNext()) beatsDone = true;
+
+        /*while (!upcomingBeatsEnumerator.MoveNext())
+        {
+            foreach (BeatInfo bi in upcomingBeatsEnumerator.Current.Value)
+            {
+                bi.CreateBeatTarget();
+            }
+        } */
     }
 
     // Update is called once per frame
     void Update () {
-
+        float songPos = SongPosition.instance.getSongPos();
+        if (!beatsDone)
+        {
+            if (upcomingBeatsEnumerator.Current.Key - songPos < LOOKAHEAD_INTERVAL)
+            {
+                foreach (BeatInfo bi in upcomingBeatsEnumerator.Current.Value)
+                {
+                    bi.CreateBeatTarget();
+                }
+                if (!upcomingBeatsEnumerator.MoveNext())
+                {
+                    beatsDone = true;
+                }
+            }
+        }
     }
 }
