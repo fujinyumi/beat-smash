@@ -5,8 +5,6 @@ using UnityEngine;
 /* also handles playing of the audio file */
 public class SongPosition : MonoBehaviour {
 
-    public static SongPosition instance = null;
-
     public const float TIME_BEFORE_AUDIO_START = 3;
 
     /* Reference if dspTime ends up too be too coarse-grained
@@ -29,23 +27,6 @@ public class SongPosition : MonoBehaviour {
     public float getSongPos() { return currentSongPosition; }
     public AudioSource getAudio() { return myAudio;  }
 
-    //enforce singleton
-    private void Awake()
-    {
-        //Check if instance already exists
-        if (instance == null)
-            //if not, set instance to this
-            instance = this;
-
-        //If instance already exists and it's not this:
-        else if (instance != this)
-            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
-            Destroy(gameObject);
-
-        //Sets this to not be destroyed when reloading scene
-        DontDestroyOnLoad(gameObject);
-    }
-
     // Use this for initialization
     void Start () {
         currentSongPosition = 0;
@@ -63,6 +44,6 @@ public class SongPosition : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //convert to milliseconds
-        currentSongPosition = (float)(AudioSettings.dspTime - initialDspTime) * 1000 - TIME_BEFORE_AUDIO_START*1000;
+        currentSongPosition = (float)(AudioSettings.dspTime - initialDspTime) * 1000;
 	}
 }
