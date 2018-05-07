@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /* WARNING: DO NOT INSTANTIATE THIS PREFAB BY HAND IN UNITY!!!!!! Unless if you like Null Pointer Exceptions */
-public class BeatTarget : MonoBehaviour {
+public abstract class BeatTarget : MonoBehaviour {
 
     public static float onscreenInterval = SongPosition.TIME_BEFORE_AUDIO_START*1000;
     public const float OFFSCREEN_Y = 100;
@@ -16,96 +16,13 @@ public class BeatTarget : MonoBehaviour {
 
     private bool isBeginLerp = true;
 
+    /* SETTERS */
     public void SetBeatInfo(BeatInfo beatinfo) { m_beatinfo = beatinfo; }
+    public void SetXPos(float x) { m_x = x; }
+    public void SetLerp(bool lerp) { isBeginLerp = lerp; }
 
-    public static BeatTarget Create(BeatInfo beatinfo)
-    {
-        GameObject newTargetObj = Instantiate(Resources.Load("Prefabs/Beat Target")) as GameObject;
-        BeatTarget newTarget = newTargetObj.GetComponent<BeatTarget>();
-        //Debug.Log(newTarget);
-        newTarget.SetBeatInfo(beatinfo);
-        return newTarget;
-    }
-
-	// Use this for initialization
-	void Start () {
-        if(m_beatinfo == null)
-        {
-            Debug.Log("wtf");
-            return;
-        }
-        Lane myLane = m_beatinfo.GetLane();
-
-        GameObject correspondingLane = null;
-
-        switch(myLane)
-        {
-            case Lane.D:
-                correspondingLane = GameObject.Find("d");
-                break;
-            case Lane.F:
-                correspondingLane = GameObject.Find("f");
-                break;
-            case Lane.Space:
-                correspondingLane = GameObject.Find("space");
-                break;
-            case Lane.J:
-                correspondingLane = GameObject.Find("j");
-                break;
-            case Lane.K:
-                correspondingLane = GameObject.Find("k");
-                break;
-            default:
-                break;
-        }
-        
-        if (correspondingLane != null)
-        {
-            m_x = correspondingLane.transform.position.x;
-        }
-        else
-        {
-            Debug.Log("Couldn't find correct lane");
-        }
-
-        transform.position = new Vector3(m_x, OFFSCREEN_Y, 5);
-
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        float songPos = SongPosition.instance.getSongPos();
-
-        // Interpolation 
-        if (m_beatinfo.GetOffset() - songPos <= onscreenInterval  && isBeginLerp)
-        {
-            // movement from top to lane target
-             transform.position = Vector3.Lerp(
-                 new Vector3(m_x, TOP_Y, -1),
-                 new Vector3(m_x, GOAL_Y, -1),
-                 (onscreenInterval - (m_beatinfo.GetOffset() - songPos)) / onscreenInterval
-                 );
-
-            // reached lane target
-            if (transform.position.y == GOAL_Y)
-            {
-                    isBeginLerp = false;
-                    transform.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 255);
-            }
-        }
-        // movement from lane target offscreen
-        if (!isBeginLerp)
-        {
-            transform.position = Vector3.Lerp(
-               new Vector3(m_x, GOAL_Y, -1),
-               new Vector3(m_x, BOTTOM_Y, -1),
-                (songPos - m_beatinfo.GetOffset())  / onscreenInterval
-               );
-            if (transform.position.y == BOTTOM_Y)
-            {
-                Destroy(gameObject);
-            }
-
-        }
-    }
+    /* GETTERS */
+    public BeatInfo GetBeatInfo() { return m_beatinfo; }
+    public float GetXPos() { return m_x; }
+    public bool GetLerp() { return isBeginLerp; }
 }
