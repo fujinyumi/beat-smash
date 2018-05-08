@@ -7,11 +7,9 @@ public enum BeatType { Hit, Held };
 
 public class Onload : MonoBehaviour {
 
+    public static Onload instance = null;
+
     /* MEMBER VARIABLES */
-    //hit intervals, in milliseconds - may need to be tweaked later when playtested
-    public const int INTERVAL_GREAT = 10;
-    public const int INTERVAL_GOOD = 20;
-    public const int INTERVAL_BAD = 30;
 
     public const float LOOKAHEAD_INTERVAL = SongPosition.TIME_BEFORE_AUDIO_START*1000;
 
@@ -54,6 +52,23 @@ public class Onload : MonoBehaviour {
 
     /* UNITY FUNCTIONS */
 
+    //enforce singleton
+    private void Awake()
+    {
+        //Check if instance already exists
+        if (instance == null)
+            //if not, set instance to this
+            instance = this;
+
+        //If instance already exists and it's not this:
+        else if (instance != this)
+            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
+            Destroy(gameObject);
+
+        //Sets this to not be destroyed when reloading scene
+        //DontDestroyOnLoad(gameObject);
+    }
+
     // Use this for initialization
     void Start () {
         //member variable initialization
@@ -75,7 +90,7 @@ public class Onload : MonoBehaviour {
         List<BeatInfo> listToInsert2 = new List<BeatInfo>();
         listToInsert.Add(new BeatInfo(Lane.F, BeatType.Hit, 1195));
         List<BeatInfo> listToInsert3 = new List<BeatInfo>();
-        listToInsert.Add(new BeatInfo(Lane.J, BeatType.Hit, 1820));
+        listToInsert.Add(new BeatInfo(Lane.J, BeatType.Held, 1820, 1000));
         upcomingBeats.Add(510, listToInsert);
         upcomingBeats.Add(1195, listToInsert2);
         upcomingBeats.Add(1820, listToInsert3);
@@ -83,14 +98,6 @@ public class Onload : MonoBehaviour {
         upcomingBeatsEnumerator = upcomingBeats.GetEnumerator();
         //move to first position
         if (!upcomingBeatsEnumerator.MoveNext()) beatsDone = true;
-
-        /*while (!upcomingBeatsEnumerator.MoveNext())
-        {
-            foreach (BeatInfo bi in upcomingBeatsEnumerator.Current.Value)
-            {
-                bi.CreateBeatTarget();
-            }
-        } */
     }
 
     // Update is called once per frame
