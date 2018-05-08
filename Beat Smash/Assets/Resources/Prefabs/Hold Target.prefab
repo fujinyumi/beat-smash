@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4548921773264152}
   - component: {fileID: 212192506120895438}
-  - component: {fileID: 114736423800488206}
+  - component: {fileID: 114895698094287518}
   m_Layer: 0
-  m_Name: Beat Target
+  m_Name: Hold Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114736423800488206
+--- !u!114 &114895698094287518
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1503916024330698}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e333b9b2041669c4ca73b5c97985b27f, type: 3}
+  m_Script: {fileID: 11500000, guid: 276b1751b1d08ff42b698620074f8a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212192506120895438
@@ -65,6 +65,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -87,7 +88,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.22794116, g: 0.73779124, b: 1, a: 1}
+  m_Color: {r: 0.9339623, g: 0.4273318, b: 0.84856945, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
