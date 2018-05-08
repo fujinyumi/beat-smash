@@ -23,32 +23,31 @@ public class HitTarget : BeatTarget {
         }
         Lane myLane = myBeatInfo.GetLane();
 
-        GameObject correspondingLane = null;
-
         switch (myLane)
         {
             case Lane.D:
-                correspondingLane = GameObject.Find("d");
+                SetLane(GameObject.Find("d").GetComponent<InputReaction>());
                 break;
             case Lane.F:
-                correspondingLane = GameObject.Find("f");
+                SetLane(GameObject.Find("f").GetComponent<InputReaction>());
                 break;
             case Lane.Space:
-                correspondingLane = GameObject.Find("space");
+                SetLane(GameObject.Find("space").GetComponent<InputReaction>());
                 break;
             case Lane.J:
-                correspondingLane = GameObject.Find("j");
+                SetLane(GameObject.Find("j").GetComponent<InputReaction>());
                 break;
             case Lane.K:
-                correspondingLane = GameObject.Find("k");
+                SetLane(GameObject.Find("k").GetComponent<InputReaction>());
                 break;
             default:
                 break;
         }
 
-        if (correspondingLane != null)
+        if (GetLane() != null)
         {
-            SetXPos(correspondingLane.transform.position.x);
+            SetXPos(GetLane().transform.position.x);
+            GetLane().Enqueue(this);
         }
         else
         {

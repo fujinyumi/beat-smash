@@ -5,13 +5,36 @@ using UnityEngine;
 /* please initialize inputKey in Unity before use. */
 public class InputReaction : MonoBehaviour {
 
+    //hit intervals, in milliseconds - may need to be tweaked later when playtested
+    public const int INTERVAL_GREAT = 50;
+    public const int INTERVAL_GOOD = 150;
+    public const int INTERVAL_BAD = 250;
+
+    public const int SCORE_GREAT = 100;
+    public const int SCORE_GOOD = 50;
+    public const int SCORE_BAD = 25;
+
     public string inputKey;
-    private bool isActive;
+
+    private Queue<BeatTarget> upcomingNotes = new Queue<BeatTarget>();
+
+    public void Enqueue(BeatTarget bt)
+    {
+        upcomingNotes.Enqueue(bt);
+    }
+
+    public BeatTarget Peek()
+    {
+        return upcomingNotes.Peek();
+    }
+
+    public void Dequeue()
+    {
+        upcomingNotes.Dequeue();
+    }
 
 	// Use this for initialization
 	void Start () {
-        isActive = false;
-
         //set name of this game object
         gameObject.name = inputKey;
     }
@@ -21,12 +44,38 @@ public class InputReaction : MonoBehaviour {
 		if(Input.GetKeyDown(inputKey))
         {
             transform.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 255);
-            isActive = true;
+
+            if (upcomingNotes.Count > 0)
+            {
+                float songPos = SongPosition.instance.getSongPos();
+                BeatTarget upcoming = upcomingNotes.Peek();
+                if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_GREAT)
+                {
+                    Onload.instance.UpdateScore(SCORE_GREAT);
+                    Debug.Log("Great");
+                    upcoming.DeleteMe();
+                    upcomingNotes.Dequeue();
+                }
+                else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_GOOD)
+                {
+                    Onload.instance.UpdateScore(SCORE_GOOD);
+                    Debug.Log("Good");
+                    upcoming.DeleteMe();
+                    upcomingNotes.Dequeue();
+                }
+                else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_BAD)
+                {
+                    Onload.instance.UpdateScore(SCORE_BAD);
+                    Debug.Log("Bad");
+                    upcoming.DeleteMe();
+                    upcomingNotes.Dequeue();
+                }
+            }
+
         }
         if (Input.GetKeyUp(inputKey))
         {
             transform.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
-            isActive = false;
         }
     }
 }
