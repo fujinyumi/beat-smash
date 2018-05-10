@@ -11,6 +11,7 @@ public class TestA {
     {
         List<BeatInfo> listToInsert = new List<BeatInfo>();
         listToInsert.Add(new BeatInfo(Lane.D, BeatType.Hit, 510));
+        listToInsert.Add(new BeatInfo(Lane.K, BeatType.Hit, 510));
         List<BeatInfo> listToInsert2 = new List<BeatInfo>();
         listToInsert.Add(new BeatInfo(Lane.F, BeatType.Hit, 1195));
         List<BeatInfo> listToInsert3 = new List<BeatInfo>();
