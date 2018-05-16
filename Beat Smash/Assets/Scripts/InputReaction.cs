@@ -51,21 +51,21 @@ public class InputReaction : MonoBehaviour {
                 BeatTarget upcoming = upcomingNotes.Peek();
                 if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_GREAT)
                 {
-                    Onload.instance.UpdateScore(SCORE_GREAT);
+                    Onload.score.UpdateScore(SCORE_GREAT);
                     Debug.Log("Great");
                     upcoming.DeleteMe();
                     upcomingNotes.Dequeue();
                 }
                 else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_GOOD)
                 {
-                    Onload.instance.UpdateScore(SCORE_GOOD);
+                    Onload.score.UpdateScore(SCORE_GOOD);
                     Debug.Log("Good");
                     upcoming.DeleteMe();
                     upcomingNotes.Dequeue();
                 }
                 else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_BAD)
                 {
-                    Onload.instance.UpdateScore(SCORE_BAD);
+                    Onload.score.UpdateScore(SCORE_BAD);
                     Debug.Log("Bad");
                     upcoming.DeleteMe();
                     upcomingNotes.Dequeue();

@@ -34,7 +34,7 @@ public class HealthBar : MonoBehaviour {
         if (accurate == 0) {
             inc = HEALTH_ADD_GREAT;
         } else {
-            inc == HEALTH_ADD_GOOD;
+            inc = HEALTH_ADD_GOOD;
         }
         if (level >= (100-inc)) {
             level = 100;
