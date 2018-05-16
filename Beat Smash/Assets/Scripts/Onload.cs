@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public enum Lane { D, F, Space, J, K };
@@ -111,5 +112,10 @@ public class Onload : MonoBehaviour {
                 }
             }
         }
+        if (songPos >= SongPosition.instance.songLength + LOOKAHEAD_INTERVAL)
+        {
+            SceneManager.LoadScene("resultscreen");
+        }
+
     }
 }
