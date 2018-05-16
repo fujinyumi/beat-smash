@@ -25,8 +25,9 @@ public class Onload : MonoBehaviour {
     SortedDictionary<int, List<BeatInfo>> upcomingBeats;
     //enumerator for this dictionary that will progressively advance.
     SortedDictionary<int, List<BeatInfo>>.Enumerator upcomingBeatsEnumerator;
-    //score display
+    //score and health display
     public static ScoreDisplay score;
+    public static HealthBar health;
 
     /* "GETTER" Functions */
 
@@ -71,6 +72,7 @@ public class Onload : MonoBehaviour {
         totalGreats = totalGoods = totalBads = totalMisses = 0;
         upcomingBeats = new SortedDictionary<int, List<BeatInfo>>();
         score = GameObject.FindWithTag("score").GetComponent<ScoreDisplay>();
+        health = GameObject.FindWithTag("health").GetComponent<HealthBar>();
 
         /* FOR MICHELLE AND OTHER PREPROCESSORS
          * Insert preprocessing script here.

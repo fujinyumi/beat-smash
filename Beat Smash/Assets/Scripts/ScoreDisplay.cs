@@ -22,7 +22,7 @@ public class ScoreDisplay : MonoBehaviour {
     {
         score += increase;
         scoreText.text = "Score: " + score.ToString();
-        Debug.Log("Score updated: " + score.ToString());
+        // Debug.Log("Score updated: " + score.ToString());
     }
 
     // Update is called once per frame

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour {
 
@@ -9,9 +10,12 @@ public class HealthBar : MonoBehaviour {
     public const int HEALTH_ADD_GOOD = 2;
     public const int HEALTH_DEDUCT_MISS = 10;
 
+    public Slider healthSlider;
+
     // Use this for initialization
     void Start () {
         level = 100;
+        healthSlider.value = level;
 	}
 	
     public void Miss()
@@ -21,7 +25,9 @@ public class HealthBar : MonoBehaviour {
             //kill code
         } else
         {
-            level -= HEALTH_DEDUCT_MISS; 
+            level -= HEALTH_DEDUCT_MISS;
+            healthSlider.value = level;
+            Debug.Log("MISS Health slider value = " + level.ToString());
         }
     }
 
@@ -41,6 +47,8 @@ public class HealthBar : MonoBehaviour {
         } else {
             level += inc;
         }
+        healthSlider.value = level;
+        Debug.Log("Health slider value = " + level.ToString());
     }
 
 	// Update is called once per frame
