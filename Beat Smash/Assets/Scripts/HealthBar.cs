@@ -30,16 +30,16 @@ public class HealthBar : MonoBehaviour {
     // Bad does not change health bar
     public void Hit(int accurate)
     {
-        int increment;
+        int inc;
         if (accurate == 0) {
-            increment = HEALTH_ADD_GREAT;
+            inc = HEALTH_ADD_GREAT;
         } else {
-            increment == HEALTH_ADD_GOOD;
+            inc == HEALTH_ADD_GOOD;
         }
-        if (level >= (100-increment)) {
+        if (level >= (100-inc)) {
             level = 100;
         } else {
-            level += increment;
+            level += inc;
         }
     }
 

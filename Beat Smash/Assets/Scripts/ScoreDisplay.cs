@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreDisplay : MonoBehaviour {
     private int score;
+    public Text scoreText;
 
 	// Use this for initialization
 	void Start () {
         score = 0;
+        scoreText.text = "Score: 0";
 	}
 
-    public void GetScore()
+    public int GetScore()
     {
         return score;
     }
@@ -18,6 +21,7 @@ public class ScoreDisplay : MonoBehaviour {
     public void UpdateScore(int increase)
     {
         score += increase;
+        scoreText.text = "Score: " + score.ToString();
     }
 
     // Update is called once per frame
