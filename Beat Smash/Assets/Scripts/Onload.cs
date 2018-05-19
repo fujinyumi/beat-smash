@@ -28,6 +28,7 @@ public class Onload : MonoBehaviour {
     SortedDictionary<int, List<BeatInfo>>.Enumerator upcomingBeatsEnumerator;
     //score and health display
     public static ScoreDisplay score;
+    public static ScoreDisplay combo;
     public static HealthBar health;
 
     /* "GETTER" Functions */
@@ -73,6 +74,7 @@ public class Onload : MonoBehaviour {
         totalGreats = totalGoods = totalBads = totalMisses = 0;
         upcomingBeats = new SortedDictionary<int, List<BeatInfo>>();
         score = GameObject.FindWithTag("score").GetComponent<ScoreDisplay>();
+        combo = GameObject.FindWithTag("combo").GetComponent<ScoreDisplay>();
         health = GameObject.FindWithTag("health").GetComponent<HealthBar>();
 
         /* FOR MICHELLE AND OTHER PREPROCESSORS

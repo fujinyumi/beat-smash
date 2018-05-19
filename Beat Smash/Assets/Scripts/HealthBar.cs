@@ -8,6 +8,7 @@ public class HealthBar : MonoBehaviour {
     private int level;
     public const int HEALTH_ADD_GREAT = 5;
     public const int HEALTH_ADD_GOOD = 2;
+    public const int HEALTH_DEDUCT_BAD = 5;
     public const int HEALTH_DEDUCT_MISS = 10;
 
     public Slider healthSlider;
@@ -17,24 +18,34 @@ public class HealthBar : MonoBehaviour {
         level = 100;
         healthSlider.value = level;
 	}
-	
-    public void Miss()
+
+    // decHealth must be called with an int argument
+    // 0 for Miss, 1 for Bad
+    public void decHealth(int accurate)
     {
-        if (level <= 10)
+        int dec;
+        if (accurate == 0)
+        {
+            dec = HEALTH_DEDUCT_MISS;
+        }
+        else
+        {
+            dec = HEALTH_DEDUCT_BAD;
+        }
+        if (level <= dec)
         {
             //kill code
         } else
         {
-            level -= HEALTH_DEDUCT_MISS;
+            level -= dec;
             healthSlider.value = level;
-            Debug.Log("MISS Health slider value = " + level.ToString());
+            Debug.Log("DEDUCT Health slider value = " + level.ToString());
         }
     }
 
-    // Hit must be called with an int argument
+    // incHealth must be called with an int argument
     // 0 for Great, 1 for Good
-    // Bad does not change health bar
-    public void Hit(int accurate)
+    public void incHealth(int accurate)
     {
         int inc;
         if (accurate == 0) {
