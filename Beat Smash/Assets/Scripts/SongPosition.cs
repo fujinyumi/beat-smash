@@ -16,6 +16,8 @@ public class SongPosition : MonoBehaviour {
     private float currentSongPosition;
     private float initialDspTime;
 
+    public float songLength; 
+
     //audio that is playing
     AudioSource myAudio;
 
@@ -27,6 +29,7 @@ public class SongPosition : MonoBehaviour {
 
     /* GETTERS */
     public float getSongPos() { return currentSongPosition; }
+    public float getAudioLength() { return songLength;  }
     public AudioSource getAudio() { return myAudio;  }
 
     //enforce singleton
@@ -58,6 +61,8 @@ public class SongPosition : MonoBehaviour {
 
         //play audio with delay
         myAudio.PlayDelayed(TIME_BEFORE_AUDIO_START);
+
+        songLength = myAudio.clip.length*1000;
     }
 	
 	// Update is called once per frame
