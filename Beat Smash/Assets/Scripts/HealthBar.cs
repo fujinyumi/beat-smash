@@ -13,11 +13,42 @@ public class HealthBar : MonoBehaviour {
 
     public Slider healthSlider;
 
+    private int great;
+    private int good;
+    private int bad;
+    private int miss;
+
+    private bool dead;
+
     // Use this for initialization
     void Start () {
         level = 100;
         healthSlider.value = level;
+        great = good = bad = miss = 0;
+        dead = false;
 	}
+
+    // Getters
+    public int getGreat()
+    {
+        return great;
+    }
+    public int getGood()
+    {
+        return good;
+    }
+    public int getBad()
+    {
+        return bad;
+    }
+    public int getMiss()
+    {
+        return miss;
+    }
+    public bool isDead()
+    {
+        return dead;
+    }
 
     // decHealth must be called with an int argument
     // 0 for Miss, 1 for Bad
@@ -26,20 +57,21 @@ public class HealthBar : MonoBehaviour {
         int dec;
         if (accurate == 0)
         {
+            miss++;
             dec = HEALTH_DEDUCT_MISS;
         }
         else
         {
+            bad++;
             dec = HEALTH_DEDUCT_BAD;
         }
         if (level <= dec)
         {
-            //kill code
+            dead = true;
         } else
         {
             level -= dec;
             healthSlider.value = level;
-            Debug.Log("DEDUCT Health slider value = " + level.ToString());
         }
     }
 
@@ -48,18 +80,23 @@ public class HealthBar : MonoBehaviour {
     public void incHealth(int accurate)
     {
         int inc;
-        if (accurate == 0) {
+        if (accurate == 0)
+        {
+            great++;
             inc = HEALTH_ADD_GREAT;
-        } else {
+        } else
+        {
+            good++;
             inc = HEALTH_ADD_GOOD;
         }
-        if (level >= (100-inc)) {
+        if (level >= (100-inc))
+        {
             level = 100;
-        } else {
+        } else
+        {
             level += inc;
         }
         healthSlider.value = level;
-        Debug.Log("Health slider value = " + level.ToString());
     }
 
 	// Update is called once per frame

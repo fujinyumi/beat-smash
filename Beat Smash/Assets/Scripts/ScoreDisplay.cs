@@ -19,21 +19,23 @@ public class ScoreDisplay : MonoBehaviour {
         comboText.text = "";
 	}
 
-    public int GetScore()
+    //Getters
+    public int getScore()
     {
         return score;
     }
 
-    public int GetCombo()
+    public int getCombo()
     {
         return combo;
     }
 
-    public int GetMaxCombo()
+    public int getMaxCombo()
     {
         return maxCombo;
     }
 
+    //Modify variables
     public void incrementCombo()
     {
         combo++;
@@ -55,7 +57,6 @@ public class ScoreDisplay : MonoBehaviour {
         incrementCombo();
         score += (increase * combo);
         scoreText.text = "Score: " + score.ToString();
-        // Debug.Log("Score updated: " + score.ToString());
     }
 
     // Update is called once per frame
