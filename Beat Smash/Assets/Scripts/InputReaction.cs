@@ -41,31 +41,45 @@ public class InputReaction : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        float songPos = SongPosition.instance.getSongPos();
+
+        //pop all notes which have been missed
+        while (
+            upcomingNotes.Count > 0 && 
+            (songPos - upcomingNotes.Peek().GetBeatInfo().GetOffset()) > INTERVAL_BAD
+            )
+        {
+            Debug.Log("Miss");
+            Onload.health.Miss();
+            upcomingNotes.Dequeue();
+        }
+
 		if(Input.GetKeyDown(inputKey))
         {
             transform.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 255);
 
             if (upcomingNotes.Count > 0)
             {
-                float songPos = SongPosition.instance.getSongPos();
                 BeatTarget upcoming = upcomingNotes.Peek();
                 if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_GREAT)
                 {
-                    Onload.instance.UpdateScore(SCORE_GREAT);
+                    Onload.score.UpdateScore(SCORE_GREAT);
+                    Onload.health.Hit(0);
                     Debug.Log("Great");
                     upcoming.DeleteMe();
                     upcomingNotes.Dequeue();
                 }
                 else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_GOOD)
                 {
-                    Onload.instance.UpdateScore(SCORE_GOOD);
+                    Onload.score.UpdateScore(SCORE_GOOD);
+                    Onload.health.Hit(1);
                     Debug.Log("Good");
                     upcoming.DeleteMe();
                     upcomingNotes.Dequeue();
                 }
                 else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_BAD)
                 {
-                    Onload.instance.UpdateScore(SCORE_BAD);
+                    Onload.score.UpdateScore(SCORE_BAD);
                     Debug.Log("Bad");
                     upcoming.DeleteMe();
                     upcomingNotes.Dequeue();

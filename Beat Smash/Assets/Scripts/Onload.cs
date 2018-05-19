@@ -14,7 +14,6 @@ public class Onload : MonoBehaviour {
     public const float LOOKAHEAD_INTERVAL = SongPosition.TIME_BEFORE_AUDIO_START*1000;
 
     //score trackers
-    private int score;
     private int totalGreats;
     private int totalGoods;
     private int totalBads;
@@ -26,10 +25,12 @@ public class Onload : MonoBehaviour {
     SortedDictionary<int, List<BeatInfo>> upcomingBeats;
     //enumerator for this dictionary that will progressively advance.
     SortedDictionary<int, List<BeatInfo>>.Enumerator upcomingBeatsEnumerator;
+    //score and health display
+    public static ScoreDisplay score;
+    public static HealthBar health;
 
     /* "GETTER" Functions */
 
-    public int GetScore() { return score; }
     public int GetGreats() { return totalGreats; }
     public int GetGoods() { return totalGoods; }
     public int GetBads() { return totalBads; }
@@ -39,11 +40,6 @@ public class Onload : MonoBehaviour {
      * NOTE: Update() functions of Unity objects are run in SEQUENCE on a single core unless multithreading is explicitly stated.
      * Thus there is no need for mutexes or locks.
      */
-
-     public void UpdateScore(int increase)
-    {
-        score += increase;
-    }
 
     public void AddGreat() { totalGreats++; }
     public void AddGood() { totalGoods++; }
@@ -72,9 +68,11 @@ public class Onload : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //member variable initialization
-        score = totalGreats = totalGoods = totalBads = totalMisses = 0;
         beatsDone = false;
+        totalGreats = totalGoods = totalBads = totalMisses = 0;
         upcomingBeats = new SortedDictionary<int, List<BeatInfo>>();
+        score = GameObject.FindWithTag("score").GetComponent<ScoreDisplay>();
+        health = GameObject.FindWithTag("health").GetComponent<HealthBar>();
 
         /* FOR MICHELLE AND OTHER PREPROCESSORS
          * Insert preprocessing script here.
