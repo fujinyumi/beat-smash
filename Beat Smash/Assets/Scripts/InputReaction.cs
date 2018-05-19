@@ -41,13 +41,25 @@ public class InputReaction : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        float songPos = SongPosition.instance.getSongPos();
+
+        //pop all notes which have been missed
+        while (
+            upcomingNotes.Count > 0 && 
+            (songPos - upcomingNotes.Peek().GetBeatInfo().GetOffset()) > INTERVAL_BAD
+            )
+        {
+            Debug.Log("Miss");
+            Onload.health.Miss();
+            upcomingNotes.Dequeue();
+        }
+
 		if(Input.GetKeyDown(inputKey))
         {
             transform.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 255);
 
             if (upcomingNotes.Count > 0)
             {
-                float songPos = SongPosition.instance.getSongPos();
                 BeatTarget upcoming = upcomingNotes.Peek();
                 if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_GREAT)
                 {
@@ -71,10 +83,6 @@ public class InputReaction : MonoBehaviour {
                     Debug.Log("Bad");
                     upcoming.DeleteMe();
                     upcomingNotes.Dequeue();
-                } else if (songPos > upcoming.GetBeatInfo().GetOffset())
-                {
-                    Onload.health.Miss();
-                    Debug.Log("Miss");
                 }
             }
 
