@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OnsetDetector single -o ./data/$1.beats ./music/$1
+DCChordRecognition single -o ./data/$1.chords ./music/$1
+DBNBeatTracker single -o ./data/$1.beats ./music/$1
 
-open ./music/$1; python showbeats.py ./data/$1.beats
 
