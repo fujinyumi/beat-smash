@@ -38,6 +38,6 @@ def fancyPrint(beatKeys, msi):
   for sec,keys in beatKeys:
     print "List<BeatInfo> listToInsert{} = new List<BeatInfo>();".format(i)
     for key in keys.split():
-      print "listToInsert{}.Add(new BeatInfo(Lane.{}, BeatType.Hit, {}));".format(i,keys, int(sec*1000))
+      print "listToInsert{}.Add(new BeatInfo(Lane.{}, BeatType.Hit, {}));".format(i,key, int(sec*1000))
     print "upcomingBeats.Add({}, listToInsert{});".format(int(sec*1000), i)
     i+=1

@@ -4,6 +4,9 @@ import sys
 import bmaFunctionsCs
 import numpy
 
+#For generating TestA.Cs file
+
+
 
 #TODO AUTOMATE CALLING MADMOM
 
