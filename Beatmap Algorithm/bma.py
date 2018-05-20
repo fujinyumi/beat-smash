@@ -33,7 +33,7 @@ beatsArray = numpy.array(beats)
 msi = numpy.mean(beatsArray[1:]-beatsArray[:-1])*1000
 
 beatmap = bmaFunctions.assignKeys(beats, chords, sys.argv[3])
-if msi < 400:
+if msi < 360:
   del beatmap[1::2]
 
 #generating and printing beatmap
