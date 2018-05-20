@@ -1,4 +1,10 @@
 #!/usr/bin/python
+
+#Author: Ivy Wang
+#Input: music file, output destination, difficulty level
+#Output: .btmp file of music file
+#Usage: python bma.py [input music] [output] [easy/medium/hard/impossible]
+
 import time
 import sys
 import bmaFunctions
@@ -27,6 +33,6 @@ beatsArray = numpy.array(beats)
 msi = numpy.mean(beatsArray[1:]-beatsArray[:-1])*1000
 
 #generating and printing beatmap
-bmaFunctions.fancyPrint(bmaFunctions.assignKeys(beats, chords), msi, sys.argv[2])
+bmaFunctions.fancyPrint(bmaFunctions.assignKeys(beats, chords, sys.argv[3]), msi, sys.argv[2])
 
 
