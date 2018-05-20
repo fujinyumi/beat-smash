@@ -1,53 +1,38 @@
 #!/usr/bin/python
+
+#Author: Ivy Wang
+#Input: music file, output destination, difficulty level
+#Output: .btmp file of music file
+#Usage: python bma.py [input music] [output] [easy/medium/hard/impossible]
+
 import time
 import sys
 import bmaFunctions
 import numpy
+from madmom.features.chords import DeepChromaChordRecognitionProcessor
+from madmom.audio.chroma import DeepChromaProcessor
+from madmom.features.beats import DBNBeatTrackingProcessor
+from madmom.features.beats import RNNBeatProcessor
 
 
-#TODO AUTOMATE CALLING MADMOM
+#Setting up Deep Chroma Chord Recognition Processor
+dcp = DeepChromaProcessor()
+decode = DeepChromaChordRecognitionProcessor()
+chroma = dcp(sys.argv[1])
+chords = decode(chroma)
 
 
-#grabbing beat file
-beatFile = sys.argv[1]
+#Setting up Dynamic Baysian Network Tracking Processor
+proc = DBNBeatTrackingProcessor(fps=100)
+act = RNNBeatProcessor()(sys.argv[1])
+beats = proc(act)
 
-#grabbing chord file
-chordFile = sys.argv[2]
-
-
-#extracting beats
-beats =[float(x) for x in open(beatFile).read().splitlines()]
-
-#extracting chords
-chords = open(chordFile).read().splitlines();
 
 #calculating msi
 beatsArray = numpy.array(beats)
 msi = numpy.mean(beatsArray[1:]-beatsArray[:-1])*1000
 
 #generating and printing beatmap
-bmaFunctions.fancyPrint(bmaFunctions.assignKeys(beats, chords), msi)
+bmaFunctions.fancyPrint(bmaFunctions.assignKeys(beats, chords, sys.argv[3]), msi, sys.argv[2])
 
-
-
-
-
-#start_time = time.time()
-#for x in lines:
-#  next_wake = start_time + x
-#  time.sleep(next_wake - time.time())
-#  print "Beat at {}".format(x)
-
-
-#for downbeat tracker
-#lines = open(filename).read().splitlines();
-#
-#start_time = time.time()
-#for line in lines:
-#  sec, count = line.split()
-#  sec = float(sec)
-#  next_wake = start_time + sec
-#  if next_wake - time.time() > 0:
-#    time.sleep(next_wake - time.time())
-#    print "Beat at {}, Count: {}".format(sec, count)
 
