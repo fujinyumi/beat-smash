@@ -1,0 +1,6 @@
+#!/bin/bash
+
+DCChordRecognition single -o ./data/$1.chords ./music/$1
+DBNBeatTracker single -o ./data/$1.beats ./music/$1
+
+
