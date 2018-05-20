@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import time
 import sys
-import bmaFunctions
+import bmaFunctionsCs
 import numpy
 
 
@@ -26,7 +26,7 @@ beatsArray = numpy.array(beats)
 msi = numpy.mean(beatsArray[1:]-beatsArray[:-1])*1000
 
 #generating and printing beatmap
-bmaFunctions.fancyPrint(bmaFunctions.assignKeys(beats, chords), msi)
+bmaFunctionsCs.fancyPrint(bmaFunctionsCs.assignKeys(beats, chords), msi)
 
 
 

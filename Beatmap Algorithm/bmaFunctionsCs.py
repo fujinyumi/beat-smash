@@ -34,6 +34,10 @@ def assignKeys(beats, chords):
 
 def fancyPrint(beatKeys, msi):
   print msi
+  i = 0
   for sec,keys in beatKeys:
+    print "List<BeatInfo> listToInsert{} = new List<BeatInfo>();".format(i)
     for key in keys.split():
-      print "{},{},0".format(int(sec*1000), key)
+      print "listToInsert{}.Add(new BeatInfo(Lane.{}, BeatType.Hit, {}));".format(i,keys, int(sec*1000))
+    print "upcomingBeats.Add({}, listToInsert{});".format(int(sec*1000), i)
+    i+=1
