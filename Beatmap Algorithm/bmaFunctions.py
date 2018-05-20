@@ -3,7 +3,8 @@ import time
 import sys
 from collections import Counter
 
-keysList = ['Space', 'J', 'F', 'K', 'D', 'J K', 'D F', 'F J', 'D K', 'D Space', 'F Space', 'J Space', 'K Space']
+keysList = ['Space', 'J', 'F', 'K', 'D', 'J K', 'D F', 'F J', 'D K', 'D Space', 'F Space', 'J Space', 'K Space', 'D J', 'F K', 'D F J', 'F J K', 'D J K', 'D F K', 'D F Space', 'Space J K', 'D Space K', 'F Space J', 'D Space J', 'F Space K', 'D F J K', 'F Space J K', 'D F Space J', 'D Space J K', 'D F Space K', 'D F Space J K']
+difficultyList = {"easy": 0, "medium": 5, "hard": 15, "impossible": 20}
 
 def assignChords(beats,chords):
   beatChords = []
@@ -16,20 +17,16 @@ def assignChords(beats,chords):
   return beatChords
 
 
-# TODO: always assign N to space
-#Check if too many keys
-def assignKeys(beats, chords):
+#TODO: unhardcode difficulty
+def assignKeys(beats, chords, difficulty):
   beatChords = assignChords(beats, chords)
   chordFreq = Counter([chord for sec, chord in beatChords]).most_common()
   chordFreq = {chord: i for i, (chord, n) in enumerate(chordFreq)}
   beatKeys = []
   for b, c in beatChords:
-    c = keysList[chordFreq[c]]
+    c = keysList[(chordFreq[c] + difficultyList[difficulty])%31]
     beatKeys.append((b,c))
   return beatKeys
-
-
-
 
 
 def fancyPrint(beatKeys, msi, fileLoc):

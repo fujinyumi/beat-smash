@@ -22,19 +22,6 @@ act = RNNBeatProcessor()(sys.argv[1])
 beats = proc(act)
 
 
-#grabbing beat file
-#beatFile = sys.argv[1]
-#
-##grabbing chord file
-#chordFile = sys.argv[2]
-
-
-#extracting beats
-#beats =[float(x) for x in open(beatFile).read().splitlines()]
-
-##extracting chords
-#chords = open(chordFile).read().splitlines();
-
 #calculating msi
 beatsArray = numpy.array(beats)
 msi = numpy.mean(beatsArray[1:]-beatsArray[:-1])*1000

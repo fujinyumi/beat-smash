@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-public class TestA {
-  public void LoadUpcomingBeats(SortedDictionary<int, List<BeatInfo>> upcomingBeats){
 List<BeatInfo> listToInsert0 = new List<BeatInfo>();
 listToInsert0.Add(new BeatInfo(Lane.D, BeatType.Hit, 80));
 listToInsert0.Add(new BeatInfo(Lane.F, BeatType.Hit, 80));
@@ -1707,4 +1702,3 @@ upcomingBeats.Add(186060, listToInsert424);
 listToInsert425.Add(new BeatInfo(Lane.F, BeatType.Hit, 186510));
 listToInsert425.Add(new BeatInfo(Lane.Space, BeatType.Hit, 186510));
 upcomingBeats.Add(186510, listToInsert425);
-}}
