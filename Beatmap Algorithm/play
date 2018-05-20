@@ -1,3 +1,0 @@
-#!/bin/bash
-
-open ./music/$1; python showchords.py ./data/$1.chords & python showbeats.py ./data/$1.beats

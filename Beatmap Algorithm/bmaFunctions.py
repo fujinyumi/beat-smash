@@ -8,10 +8,10 @@ keysList = ['Space', 'J', 'F', 'K', 'D', 'J K', 'D F', 'F J', 'D K', 'D Space', 
 def assignChords(beats,chords):
   beatChords = []
   chorditer = iter(chords)
-  start, end, chord = next(chorditer).split()
+  start, end, chord = next(chorditer)
   for beat in beats:
     while beat >= float(end):
-      start, end, chord = next(chorditer).split()
+      start, end, chord = next(chorditer)
     beatChords.append((beat,chord))
   return beatChords
 
@@ -32,8 +32,10 @@ def assignKeys(beats, chords):
 
 
 
-def fancyPrint(beatKeys, msi):
-  print msi
+def fancyPrint(beatKeys, msi, fileLoc):
+  f = open(fileLoc, "w+")
+  print >> f, msi
   for sec,keys in beatKeys:
     for key in keys.split():
-      print "{},{},0".format(int(sec*1000), key)
+      print >> f, "{},{},0".format(int(sec*1000), key)
+  f.close();
