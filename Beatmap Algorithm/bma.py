@@ -32,7 +32,12 @@ beats = proc(act)
 beatsArray = numpy.array(beats)
 msi = numpy.mean(beatsArray[1:]-beatsArray[:-1])*1000
 
+beatmap = bmaFunctions.assignKeys(beats, chords, sys.argv[3])
+if msi < 360:
+  del beatmap[1::2]
+
 #generating and printing beatmap
-bmaFunctions.fancyPrint(bmaFunctions.assignKeys(beats, chords, sys.argv[3]), msi, sys.argv[2])
+bmaFunctions.fancyPrint(beatmap, msi, sys.argv[2])
 
 
+#TODO: eliminate trailing Ns
