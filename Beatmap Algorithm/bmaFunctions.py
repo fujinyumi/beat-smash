@@ -17,6 +17,7 @@ def assignChords(beats,chords):
   return beatChords
 
 
+#TODO: unhardcode difficulty
 def assignKeys(beats, chords, difficulty):
   beatChords = assignChords(beats, chords)
   chordFreq = Counter([chord for sec, chord in beatChords]).most_common()
