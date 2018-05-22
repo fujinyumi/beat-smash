@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SongButton : MonoBehaviour {
 
@@ -9,39 +10,26 @@ public class SongButton : MonoBehaviour {
     public Text TitleText;
 
     private SongInfo m_songInfo;
-    private SongScrollList m_scrollList;
+    
 
 	// Use this for initialization
 	void Start () {
-        //TitleText.text = m_songInfo.m_title;
+        button.onClick.AddListener(HandleClick);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
 	}
-    //public static SongButton CreateSongButton(SongInfo info)
-    //{
-    //    GameObject newButtonObj = Instantiate(Resources.Load("Prefabs/menu/SongButton")) as GameObject;
-    //    SongButton newButton = newButtonObj.GetComponent<SongButton>();
-    //    //m_songInfo = info;
-    //    //SetSongInfo(info);
-    //    TitleText.text = info.m_title;
-    //    return newButton;
-    //}
 
-    //private void SetSongInfo(SongInfo info)
-    //{
-    //    m_songInfo = info;
-    //}
-
-    public void Setup(SongInfo currInfo, SongScrollList currScrollList)
+    public void Setup(SongInfo currInfo)
     {
         m_songInfo = currInfo;
         TitleText.text = m_songInfo.m_title;
-
-        m_scrollList = currScrollList;
     }
 
+    public void HandleClick()
+    {
+        SceneManager.LoadScene("gamescreen");
+    }
 
 }

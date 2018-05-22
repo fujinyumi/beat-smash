@@ -48,13 +48,10 @@ public class SongScrollList : MonoBehaviour {
             SongInfo songInfo = songList[i];
             //SongButton newButton =  Instantiate(button);
             GameObject newButton = Instantiate(Resources.Load("Prefabs/menu/SongButton")) as GameObject;
-           // SongButton newButton = SongButton.CreateSongButton(songInfo);
             newButton.transform.SetParent(contentPanel);
 
             SongButton songButton = newButton.GetComponent<SongButton>();
-            songButton.Setup(songInfo, this);
-             
-
+            songButton.Setup(songInfo);
         }
     }
 
