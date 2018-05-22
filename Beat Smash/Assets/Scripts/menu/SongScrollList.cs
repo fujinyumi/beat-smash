@@ -7,11 +7,13 @@ using UnityEngine.UI;
 
 public class SongScrollList : MonoBehaviour {
 
-    public List<SongInfo> songList;
-    
+    public List<SongInfo> songList = new List<SongInfo>();
+    public Transform contentPanel;
+    public SongButton button;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         SongInfo s0 = new SongInfo("yoyo", "10", 898789);
         SongInfo s1 = new SongInfo("yoyo", "10", 898789);
         SongInfo s2 = new SongInfo("2", "10", 898789);
@@ -29,8 +31,6 @@ public class SongScrollList : MonoBehaviour {
 
         AddButtons();
 
-
-
     }
 	
 	// Update is called once per frame
@@ -38,14 +38,21 @@ public class SongScrollList : MonoBehaviour {
 		
 	}
 
+    
+
+    // create buttons from songList
     private void AddButtons()
     {
         for (int i = 0; i < songList.Count; i++)
         {
             SongInfo songInfo = songList[i];
-            // GameObject newButton = (GameObject) GameObject.Instantiate("SongButton");
-            //GameObject newButtonObj = Instantiate(Resources.Load("Prefabs/menu/SongButton")) as GameObject;
-            SongButton newButton = SongButton.CreateSongButton(songInfo);
+            //SongButton newButton =  Instantiate(button);
+            GameObject newButton = Instantiate(Resources.Load("Prefabs/menu/SongButton")) as GameObject;
+           // SongButton newButton = SongButton.CreateSongButton(songInfo);
+            newButton.transform.SetParent(contentPanel);
+
+            SongButton songButton = newButton.GetComponent<SongButton>();
+            songButton.Setup(songInfo, this);
              
 
         }
