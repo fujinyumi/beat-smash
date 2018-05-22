@@ -14,13 +14,13 @@ public class SongScrollList : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        SongInfo s0 = new SongInfo("yoyo", "10", 898789);
-        SongInfo s1 = new SongInfo("yoyo", "10", 898789);
-        SongInfo s2 = new SongInfo("2", "10", 898789);
-        SongInfo s3 = new SongInfo("3", "10", 898789);
-        SongInfo s4 = new SongInfo("4", "10", 898789);
-        SongInfo s5 = new SongInfo("5", "10", 898789);
-        SongInfo s6 = new SongInfo("6", "10", 898789);
+        SongInfo s0 = new SongInfo("0T", "0", 898789);
+        SongInfo s1 = new SongInfo("1T", "1", 898789);
+        SongInfo s2 = new SongInfo("2T", "2", 898789);
+        SongInfo s3 = new SongInfo("3T", "3", 898789);
+        SongInfo s4 = new SongInfo("4T", "4", 898789);
+        SongInfo s5 = new SongInfo("5T", "5", 898789);
+        SongInfo s6 = new SongInfo("6T", "6", 898789);
         songList.Add(s0);
         songList.Add(s1);
         songList.Add(s2);
