@@ -72,7 +72,11 @@ public class Onload : MonoBehaviour {
         //member variable initialization
         beatsDone = false;
         totalGreats = totalGoods = totalBads = totalMisses = 0;
+
+        // Change key from int to float -> desired? 
+        // Reason: m_offset is a float and that is the same as beat timestamp
         upcomingBeats = new SortedDictionary<int, List<BeatInfo>>();
+
         score = GameObject.FindWithTag("score").GetComponent<ScoreDisplay>();
         health = GameObject.FindWithTag("health").GetComponent<HealthBar>();
 
@@ -91,8 +95,11 @@ public class Onload : MonoBehaviour {
              OR 
              - Load file from any directory that the user specifies
         */
+        // Debug.Log("Before filePath");
         string filePath = System.IO.Path.GetFullPath("Assets/Resources/Beatmaps/Test2.btmp");
+        // string filePath = "C:\\Users";
         
+        Debug.Log(filePath);
         using(var reader = new StreamReader(filePath))
         {
             /** REMEMBER TO REMOVE Debug.Log'S AFTER TESTING **/
@@ -119,6 +126,11 @@ public class Onload : MonoBehaviour {
                     else
                         Debug.Log("beat_timestamp could not be parsed.");
 
+                    float beat_offset = -1;
+                    if (float.TryParse(values[0], out beat_offset))
+                        Debug.Log(beat_offset);
+                    else
+                        Debug.Log("beat_offset could not be parsed.");
                     
                     // ** Beat Lane **     
                     Lane beat_lane = Lane.UnInit;
@@ -155,7 +167,7 @@ public class Onload : MonoBehaviour {
                             break;
                     }
 
-                    var newBeat = new BeatInfo(beat_lane, beat_type, beat_timestamp);
+                    var newBeat = new BeatInfo(beat_lane, beat_type, beat_offset);
 
                     // ** Beat Duration ** 
                     int beat_duration = -1;
@@ -163,7 +175,7 @@ public class Onload : MonoBehaviour {
                         if (int.TryParse(values[3], out beat_duration)){
                             Debug.Log("beat_duration = ");
                             Debug.Log(beat_duration);
-                            var tmpBeat = new BeatInfo(beat_lane, beat_type, beat_timestamp, beat_duration);
+                            var tmpBeat = new BeatInfo(beat_lane, beat_type, beat_offset, beat_duration);
                             newBeat = tmpBeat; 
                         }
                         else
