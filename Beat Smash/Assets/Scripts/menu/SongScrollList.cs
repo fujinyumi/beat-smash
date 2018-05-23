@@ -24,27 +24,17 @@ public class SongScrollList : MonoBehaviour {
         songList.Add(s1);
         songList.Add(s2);
         songList.Add(s3);
-
         AddButtons();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     
-
     // create buttons from songList
     private void AddButtons()
     {
         for (int i = 0; i < songList.Count; i++)
         {
             SongInfo songInfo = songList[i];
-            //SongButton newButton =  Instantiate(button);
             GameObject newButton = Instantiate(Resources.Load("Prefabs/menu/SongButton")) as GameObject;
             newButton.transform.SetParent(contentPanel);
-
             SongButton songButton = newButton.GetComponent<SongButton>();
             songButton.Setup(songInfo);
         }

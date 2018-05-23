@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class SongToBePlayed  {
 
-    private static SongInfo m_songInfo;
+    private static SongInfo m_songInfo = null;
 
 	public static SongInfo songInfo
     {

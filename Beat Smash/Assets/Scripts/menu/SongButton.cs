@@ -8,19 +8,14 @@ public class SongButton : MonoBehaviour {
 
     public Button button;
     public Text TitleText;
-
     private SongInfo m_songInfo;
-    
 
 	// Use this for initialization
 	void Start () {
         button.onClick.AddListener(HandleClick);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
 
+    // sets attibutes of the button
     public void Setup(SongInfo currInfo)
     {
         m_songInfo = currInfo;
