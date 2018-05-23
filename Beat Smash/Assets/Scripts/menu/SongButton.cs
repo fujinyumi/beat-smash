@@ -29,13 +29,16 @@ public class SongButton : MonoBehaviour {
 
     public void HandleClick()
     {
-        //SceneManager.LoadScene("gamescreen");
+        // update infomation text on side of screen
         Text title = GameObject.Find("TitleText").GetComponent<Text>();
         title.text = "TITLE\n" + m_songInfo.m_title;
         Text length = GameObject.Find("LengthText").GetComponent<Text>();
         length.text = "LENGTH\n" + m_songInfo.m_length;
         Text notice = GameObject.Find("NoticeText").GetComponent<Text>();
         notice.text = "Press ENTER to play";
+
+        // update SongToBePlayed
+        SongToBePlayed.songInfo = m_songInfo;
     }
 
 }

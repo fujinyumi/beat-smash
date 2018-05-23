@@ -77,7 +77,8 @@ public class Onload : MonoBehaviour {
 
         /* FOR MICHELLE AND OTHER PREPROCESSORS
          * Insert preprocessing script here.
-         * INPUT: Read the beatmap file in (using System.IO.File?)
+         * INPUT: Read the beatmap file in (using System.IO.File?) 
+         *          access path to beatmap (string) using SongToBePlayed.songInfo.m_pathToBeatmap;
          * OUTPUT: Using an ordered map (implemented as a red-black tree, so O(logn) access, search, insertion, deletion)
          * of type < int, List<BeatInfo> > where int corresponds to the time offset (in ms) and BeatInfo is a class containing target info, 
          * process the beatmap file and consolidate beats with the same ms offset into the List of each key-value pair
