@@ -43,3 +43,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: ui-above
+    uniqueID: 1408096285
+    locked: 0
+  - name: beat-targets
+    uniqueID: 594683823
+    locked: 0
+  - name: ui-below
+    uniqueID: 2934937759
+    locked: 0

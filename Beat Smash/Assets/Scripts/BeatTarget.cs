@@ -10,6 +10,7 @@ public abstract class BeatTarget : MonoBehaviour {
     public const float TOP_Y = 6;
     public const float GOAL_Y = -2.5f;
     public const float BOTTOM_Y = GOAL_Y - (TOP_Y - GOAL_Y);
+    public const string TARGET_LAYER = "beat-targets";
 
     private BeatInfo m_beatinfo = null;
     private InputReaction correspondingLane = null;
