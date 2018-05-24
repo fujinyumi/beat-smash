@@ -18,6 +18,8 @@ public class InputReaction : MonoBehaviour {
 
     private Queue<BeatTarget> upcomingNotes = new Queue<BeatTarget>();
 
+    private SpriteRenderer myRenderer;
+
     public void Enqueue(BeatTarget bt)
     {
         upcomingNotes.Enqueue(bt);
@@ -37,6 +39,10 @@ public class InputReaction : MonoBehaviour {
 	void Start () {
         //set name of this game object
         gameObject.name = inputKey;
+
+        //disable visibility
+        myRenderer = GetComponent<SpriteRenderer>();
+        myRenderer.enabled = false;
     }
 	
 	// Update is called once per frame
@@ -56,7 +62,7 @@ public class InputReaction : MonoBehaviour {
 
 		if(Input.GetKeyDown(inputKey))
         {
-            transform.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 255);
+            myRenderer.enabled = true;
 
             if (upcomingNotes.Count > 0)
             {
@@ -89,7 +95,7 @@ public class InputReaction : MonoBehaviour {
         }
         if (Input.GetKeyUp(inputKey))
         {
-            transform.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
+            myRenderer.enabled = false;
         }
     }
 }
