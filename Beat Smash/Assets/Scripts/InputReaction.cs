@@ -19,6 +19,7 @@ public class InputReaction : MonoBehaviour {
     private Queue<BeatTarget> upcomingNotes = new Queue<BeatTarget>();
 
     private SpriteRenderer myRenderer;
+    private AudioSource myAudio;
 
     public void Enqueue(BeatTarget bt)
     {
@@ -43,6 +44,9 @@ public class InputReaction : MonoBehaviour {
         //disable visibility
         myRenderer = GetComponent<SpriteRenderer>();
         myRenderer.enabled = false;
+
+        //get audio
+        myAudio = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -63,7 +67,8 @@ public class InputReaction : MonoBehaviour {
 		if(Input.GetKeyDown(inputKey))
         {
             myRenderer.enabled = true;
-
+            myAudio.Play();
+            
             if (upcomingNotes.Count > 0)
             {
                 BeatTarget upcoming = upcomingNotes.Peek();
