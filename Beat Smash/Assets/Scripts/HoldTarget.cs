@@ -15,14 +15,15 @@ public class HoldTarget : BeatTarget {
     // Use this for initialization
     void Start()
     {
-        BeatInfo myBeatInfo = GetBeatInfo();
-
-        if (myBeatInfo == null)
+        //set sorting layer
+        sprite = GetComponent<SpriteRenderer>();
+        if (sprite)
         {
-            Debug.Log("wtf");
-            return;
+            sprite.sortingLayerName = TARGET_LAYER;
         }
+        else { Debug.Log("Error retrieving sprite layer."); }
 
+        BeatInfo myBeatInfo = GetBeatInfo();
         Lane myLane = myBeatInfo.GetLane();
 
         switch (myLane)
@@ -56,7 +57,7 @@ public class HoldTarget : BeatTarget {
             Debug.Log("Couldn't find correct lane");
         }
 
-        transform.position = new Vector3(GetXPos(), OFFSCREEN_Y, 5);
+        transform.position = new Vector3(GetXPos(), OFFSCREEN_Y, 0);
     }
 
     // Update is called once per frame
@@ -79,7 +80,7 @@ public class HoldTarget : BeatTarget {
             if (transform.position.y == GOAL_Y)
             {
                 SetLerp(false);
-                transform.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 255);
+                sprite.sprite = missedBeat;
             }
         }
         // movement from lane target offscreen
