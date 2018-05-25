@@ -14,7 +14,7 @@ public class HitTarget : BeatTarget {
     // Use this for initialization
     void Start () {
         //set sorting layer
-        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        sprite = GetComponent<SpriteRenderer>();
         if(sprite)
         {
             sprite.sortingLayerName = TARGET_LAYER;
@@ -78,7 +78,7 @@ public class HitTarget : BeatTarget {
             if (transform.position.y == GOAL_Y)
             {
                 SetLerp(false);
-                transform.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 255);
+                sprite.sprite = missedBeat;
             }
         }
         // movement from lane target offscreen
