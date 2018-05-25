@@ -8,47 +8,95 @@ public class HealthBar : MonoBehaviour {
     private int level;
     public const int HEALTH_ADD_GREAT = 5;
     public const int HEALTH_ADD_GOOD = 2;
+    public const int HEALTH_DEDUCT_BAD = 5;
     public const int HEALTH_DEDUCT_MISS = 10;
 
     public Slider healthSlider;
+
+    private int great;
+    private int good;
+    private int bad;
+    private int miss;
+
+    private bool dead;
 
     // Use this for initialization
     void Start () {
         level = 100;
         healthSlider.value = level;
+        great = good = bad = miss = 0;
+        dead = false;
 	}
-	
-    public void Miss()
+
+    // Getters
+    public int getGreat()
     {
-        if (level <= 10)
+        return great;
+    }
+    public int getGood()
+    {
+        return good;
+    }
+    public int getBad()
+    {
+        return bad;
+    }
+    public int getMiss()
+    {
+        return miss;
+    }
+    public bool isDead()
+    {
+        return dead;
+    }
+
+    // decHealth must be called with an int argument
+    // 0 for Miss, 1 for Bad
+    public void decHealth(int accurate)
+    {
+        int dec;
+        if (accurate == 0)
         {
-            //kill code
+            miss++;
+            dec = HEALTH_DEDUCT_MISS;
+        }
+        else
+        {
+            bad++;
+            dec = HEALTH_DEDUCT_BAD;
+        }
+        if (level <= dec)
+        {
+            dead = true;
         } else
         {
-            level -= HEALTH_DEDUCT_MISS;
+            level -= dec;
             healthSlider.value = level;
-            Debug.Log("MISS Health slider value = " + level.ToString());
         }
     }
 
-    // Hit must be called with an int argument
+    // incHealth must be called with an int argument
     // 0 for Great, 1 for Good
-    // Bad does not change health bar
-    public void Hit(int accurate)
+    public void incHealth(int accurate)
     {
         int inc;
-        if (accurate == 0) {
+        if (accurate == 0)
+        {
+            great++;
             inc = HEALTH_ADD_GREAT;
-        } else {
+        } else
+        {
+            good++;
             inc = HEALTH_ADD_GOOD;
         }
-        if (level >= (100-inc)) {
+        if (level >= (100-inc))
+        {
             level = 100;
-        } else {
+        } else
+        {
             level += inc;
         }
         healthSlider.value = level;
-        Debug.Log("Health slider value = " + level.ToString());
     }
 
 	// Update is called once per frame

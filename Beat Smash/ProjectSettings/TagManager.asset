@@ -6,6 +6,7 @@ TagManager:
   tags:
   - score
   - health
+  - combo
   layers:
   - Default
   - TransparentFX

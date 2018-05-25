@@ -50,7 +50,8 @@ public class InputReaction : MonoBehaviour {
             )
         {
             Debug.Log("Miss");
-            Onload.health.Miss();
+            Onload.score.missCombo();
+            Onload.health.decHealth(0);
             upcomingNotes.Dequeue();
         }
 
@@ -64,7 +65,7 @@ public class InputReaction : MonoBehaviour {
                 if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_GREAT)
                 {
                     Onload.score.UpdateScore(SCORE_GREAT);
-                    Onload.health.Hit(0);
+                    Onload.health.incHealth(0);
                     Debug.Log("Great");
                     upcoming.DeleteMe();
                     upcomingNotes.Dequeue();
@@ -72,7 +73,7 @@ public class InputReaction : MonoBehaviour {
                 else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_GOOD)
                 {
                     Onload.score.UpdateScore(SCORE_GOOD);
-                    Onload.health.Hit(1);
+                    Onload.health.incHealth(1);
                     Debug.Log("Good");
                     upcoming.DeleteMe();
                     upcomingNotes.Dequeue();
@@ -80,6 +81,7 @@ public class InputReaction : MonoBehaviour {
                 else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_BAD)
                 {
                     Onload.score.UpdateScore(SCORE_BAD);
+                    Onload.health.decHealth(1);
                     Debug.Log("Bad");
                     upcoming.DeleteMe();
                     upcomingNotes.Dequeue();
