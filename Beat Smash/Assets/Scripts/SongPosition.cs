@@ -57,6 +57,11 @@ public class SongPosition : MonoBehaviour {
 
         myAudio = GetComponent<AudioSource>();
 
+        //Get audio clip from path
+        string audioPath = SongToBePlayed.songInfo.m_pathToAudio;
+        AudioClip sound = Resources.Load<AudioClip>(audioPath);
+        myAudio.clip = sound;
+
         initialDspTime = (float)AudioSettings.dspTime;
 
         //play audio with delay
