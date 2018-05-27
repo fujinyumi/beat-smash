@@ -18,6 +18,12 @@ public class InputReaction : MonoBehaviour {
 
     private Queue<BeatTarget> upcomingNotes = new Queue<BeatTarget>();
 
+    private SpriteRenderer myRenderer;
+    private Sprite splatted;
+    private Sprite ring;
+
+    private AudioSource myAudio;
+
     public void Enqueue(BeatTarget bt)
     {
         upcomingNotes.Enqueue(bt);
@@ -33,10 +39,23 @@ public class InputReaction : MonoBehaviour {
         upcomingNotes.Dequeue();
     }
 
-	// Use this for initialization
-	void Start () {
+    void Awake()
+    {
+        ring = Resources.Load<Sprite>("Sprites/GlowCircle2 copy");
+        splatted = Resources.Load<Sprite>("Sprites/splat-tentative");
+    }
+
+    // Use this for initialization
+    void Start () {
         //set name of this game object
         gameObject.name = inputKey;
+
+        //disable visibility
+        myRenderer = GetComponent<SpriteRenderer>();
+        myRenderer.enabled = false;
+
+        //get audio
+        myAudio = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -50,46 +69,57 @@ public class InputReaction : MonoBehaviour {
             )
         {
             Debug.Log("Miss");
-            Onload.health.Miss();
+            Onload.score.missCombo();
+            Onload.health.decHealth(0);
             upcomingNotes.Dequeue();
         }
 
 		if(Input.GetKeyDown(inputKey))
         {
-            transform.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 255);
-
+            myRenderer.enabled = true;
+            myAudio.Play();
+            
             if (upcomingNotes.Count > 0)
             {
                 BeatTarget upcoming = upcomingNotes.Peek();
                 if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_GREAT)
                 {
                     Onload.score.UpdateScore(SCORE_GREAT);
-                    Onload.health.Hit(0);
+                    Onload.health.incHealth(0);
                     Debug.Log("Great");
                     upcoming.DeleteMe();
                     upcomingNotes.Dequeue();
+                    myRenderer.sprite = splatted;
+                    transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
                 }
                 else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_GOOD)
                 {
                     Onload.score.UpdateScore(SCORE_GOOD);
-                    Onload.health.Hit(1);
+                    Onload.health.incHealth(1);
                     Debug.Log("Good");
                     upcoming.DeleteMe();
                     upcomingNotes.Dequeue();
+                    myRenderer.sprite = splatted;
+                    transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
                 }
                 else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_BAD)
                 {
                     Onload.score.UpdateScore(SCORE_BAD);
+                    Onload.health.decHealth(1);
                     Debug.Log("Bad");
                     upcoming.DeleteMe();
                     upcomingNotes.Dequeue();
+                    myRenderer.sprite = splatted;
+                    transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
                 }
             }
 
         }
         if (Input.GetKeyUp(inputKey))
         {
-            transform.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
+            myRenderer.enabled = false;
+            myRenderer.sprite = ring;
+            transform.localScale = new Vector3(0.06f, 0.06f, 0.06f);
         }
     }
 }
