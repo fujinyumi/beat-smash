@@ -81,6 +81,7 @@ public class Onload : MonoBehaviour {
         score = GameObject.FindWithTag("score").GetComponent<ScoreDisplay>();
         health = GameObject.FindWithTag("health").GetComponent<HealthBar>();
 
+        Debug.Log(SongToBePlayed.songInfo.m_title);
         /* FOR MICHELLE AND OTHER PREPROCESSORS
          * Insert preprocessing script here.
          * INPUT: Read the beatmap file in (using System.IO.File?) 
@@ -187,7 +188,7 @@ public class Onload : MonoBehaviour {
                     else
                         Debug.Log("beat_duration could not be parsed.");
                 }
-                                    
+
 
                 //the set of beats for each time stamp
                 List<BeatInfo> beatSet = new List<BeatInfo>();
@@ -212,8 +213,8 @@ public class Onload : MonoBehaviour {
                     beatSet.Add(newBeat);
                     upcomingBeats.Add(beat_timestamp, beatSet);
                 }
-                } // end firstLine if statement
-                else { firstLine = 1; Debug.Log("First line skipped"); }
+            } // end firstLine if statement
+            else { firstLine = 1; Debug.Log("First line skipped"); }
 
         } // end of btmp_raw foreach loop
 
@@ -222,9 +223,9 @@ public class Onload : MonoBehaviour {
         // // testBeatsA.LoadUpcomingBeats(upcomingBeats);
 
 
-        // upcomingBeatsEnumerator = upcomingBeats.GetEnumerator();
-        // //move to first position
-        // if (!upcomingBeatsEnumerator.MoveNext()) beatsDone = true;
+        upcomingBeatsEnumerator = upcomingBeats.GetEnumerator();
+        //move to first position
+        if (!upcomingBeatsEnumerator.MoveNext()) beatsDone = true;
 
     } // end of Start()
 
