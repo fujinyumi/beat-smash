@@ -16,14 +16,24 @@ public class SongScrollList : MonoBehaviour {
     void Start () {
 
         //TODO: Pre processiing here: should update songList
-        SongInfo s0 = new SongInfo("Audio/radio", "Beatmaps/Test", "radio", "0", 898789);
-        SongInfo s1 = new SongInfo("Audio/STRM_MAP_C3", "Beatmaps/Test", "STRM_MAP_C3", "1", 898789);
-        SongInfo s2 = new SongInfo("Audio/TestA", "Beatmaps/Test", "TestA", "2", 898789);
-        SongInfo s3 = new SongInfo("Audio/TestB", "Beatmaps/Test", "TestB", "3", 898789);
+        /* SongInfo structure: pathToAudio, pathToBeatmap, title, length (perhaps), high score (perhaps) 
+
+           Check if audio/beatmaps are both available 
+           1) Look into the directory 
+           2) Same file names
+        */
+
+
+        SongInfo s0 = new SongInfo("Audio/radio", "Beatmaps/Test", "radio", "0");
+        SongInfo s1 = new SongInfo("Audio/STRM_MAP_C3", "Beatmaps/Test", "STRM_MAP_C3", "1");
+        SongInfo s2 = new SongInfo("Audio/TestA", "Beatmaps/Test", "TestA", "2");
+        SongInfo s3 = new SongInfo("Audio/TestB", "Beatmaps/Test", "TestB", "3");
+        SongInfo s4 = new SongInfo("Audio/delilah", "Beatmaps/delilah", "Delilah", "4");
         songList.Add(s0);
         songList.Add(s1);
         songList.Add(s2);
         songList.Add(s3);
+        songList.Add(s4);
         AddButtons();
     }
     

@@ -102,7 +102,8 @@ public class Onload : MonoBehaviour {
         combo = GameObject.FindWithTag("combo").GetComponent<ScoreDisplay>();
         health = GameObject.FindWithTag("health").GetComponent<HealthBar>();
 
-        Debug.Log(SongToBePlayed.songInfo.m_title);
+        SongInfo cur_song = SongToBePlayed.songInfo;
+        Debug.Log(cur_song.m_title + " " + cur_song.m_pathToBeatmap + " " + cur_song.m_pathToAudio);
         /* FOR MICHELLE AND OTHER PREPROCESSORS
          * Insert preprocessing script here.
          * INPUT: Read the beatmap file in (using System.IO.File?) 
@@ -115,19 +116,23 @@ public class Onload : MonoBehaviour {
          /* Current - load file from a set path
            TO DO: 
              - Load file from a directory; user specified file name
+             - Grab path to file from the specified SongToBePlayed object
              OR 
              - Load file from any directory that the user specifies
         */
-        // Debug.Log("Before filePath");
-        // string filePath = System.IO.Path.GetFullPath("Assets/Resources/Beatmaps/Test2.btmp");
-        TextAsset btmp_file = Resources.Load("Beatmaps/Test2") as TextAsset;
+
+        string btmp_path = SongToBePlayed.songInfo.m_pathToBeatmap;
+
+        TextAsset btmp_file = Resources.Load(btmp_path) as TextAsset;
         Debug.Log(btmp_file.text);
         var btmp_raw = btmp_file.text.Split('\n');
-        // Debug.Log(btmp_raw.Length);
+        // Debug.Log("Last line length = " + btmp_raw[807].Length);
 
         var firstLine = 0;
+        var line_count = 0;
         foreach(var line in btmp_raw)
         {        
+            line_count++;
             /** REMEMBER TO REMOVE Debug.Log'S AFTER TESTING **/
 
             /** THE BEATMAP FILE FORMAT IS: 
@@ -135,9 +140,9 @@ public class Onload : MonoBehaviour {
                     timestamp, lane, beat type, duration
                     values[0], [1],  [2],       [3]
             **/
-
+            Debug.Log("Cur line = " + line_count);
             // If the firstLine has already been read, start processing values
-            if(firstLine == 1){
+            if(firstLine == 1 && line.Length > 0){
 
                 // Get values from each line (beat)
                 var values = line.Split(',');
@@ -147,11 +152,12 @@ public class Onload : MonoBehaviour {
             
                 // ** Beat Timestamp ** 
                 int beat_timestamp = -1;
+                Debug.Log("timestamp = " + values[0]);
                 if (int.TryParse(values[0], out beat_timestamp)) {
                     // Debug.Log("beat_timestamp " + beat_timestamp);
                 }
                 else
-                    Debug.Log("beat_timestamp could not be parsed.");
+                    Debug.Log("beat_timestamp could not be parsed: " + beat_timestamp);
 
                 float beat_offset = -1;
                 if (float.TryParse(values[0], out beat_offset)){
@@ -176,22 +182,22 @@ public class Onload : MonoBehaviour {
                     case "K": beat_lane = Lane.K;
                         break;
                     default:
-                        Debug.Log("No such key lane.");
+                        Debug.Log("No such key lane: " + beat_lane);
                         break;
                 }
 
 
                 // ** Beat Type ** 
                 BeatType beat_type = BeatType.UnInit;
-                string raw_beat_type = values[2];
+                char raw_beat_type = values[2][0];
 
                 switch(raw_beat_type){
-                    case "0": beat_type = BeatType.Hit;
+                    case '0': beat_type = BeatType.Hit;
                         break;
-                    case "1": beat_type = BeatType.Held;
+                    case '1': beat_type = BeatType.Held;
                         break;
                     default: 
-                        Debug.Log("No such beat type.");
+                        Debug.Log("No such beat type: " + raw_beat_type);
                         break;
                 }
 
@@ -219,8 +225,6 @@ public class Onload : MonoBehaviour {
                     {
                         beatSet.Add(newBeat);
                         upcomingBeats[beat_timestamp] = beatSet;
-                        Debug.Log("Double notes");
-
                         // Maybe all of this (within TryGetValue if statement)
                         // can be shortened down to just: 
                         // upcomingBeats[beat_timestamp].Add(newBeat);
@@ -243,7 +247,7 @@ public class Onload : MonoBehaviour {
         // // TestA testBeatsA = new TestA();
         // // testBeatsA.LoadUpcomingBeats(upcomingBeats);
 
-
+        Debug.Log("upcomingBeats = " + upcomingBeats);
         upcomingBeatsEnumerator = upcomingBeats.GetEnumerator();
         //move to first position
         if (!upcomingBeatsEnumerator.MoveNext()) beatsDone = true;
