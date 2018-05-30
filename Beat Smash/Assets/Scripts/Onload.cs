@@ -29,6 +29,7 @@ public class Onload : MonoBehaviour {
     SortedDictionary<int, List<BeatInfo>>.Enumerator upcomingBeatsEnumerator;
     //score and health display
     public static ScoreDisplay score;
+    public static ScoreDisplay combo;
     public static HealthBar health;
 
     /* "GETTER" Functions */
@@ -47,6 +48,25 @@ public class Onload : MonoBehaviour {
     public void AddGood() { totalGoods++; }
     public void AddBad() { totalBads++; }
     public void AddMiss() { totalMisses++; }
+
+    // Populate static script with result data
+    private void populate(bool calculateGrade)
+    {
+        // Call this function with FALSE argument if the player died
+        // Otherwise, call with TRUE (player reached end of song)
+        if (calculateGrade)
+        {
+            // calculate accurate grade
+            ResultStats.Grade = "A";
+        } else { ResultStats.Grade = "F"; }
+
+        ResultStats.Score = score.getScore();
+        ResultStats.MaxCombo = score.getMaxCombo();
+        ResultStats.Great = health.getGreat();
+        ResultStats.Good = health.getGood();
+        ResultStats.Bad = health.getBad();
+        ResultStats.Miss = health.getMiss();
+    }
 
     /* UNITY FUNCTIONS */
 
@@ -79,6 +99,7 @@ public class Onload : MonoBehaviour {
         upcomingBeats = new SortedDictionary<int, List<BeatInfo>>();
 
         score = GameObject.FindWithTag("score").GetComponent<ScoreDisplay>();
+        combo = GameObject.FindWithTag("combo").GetComponent<ScoreDisplay>();
         health = GameObject.FindWithTag("health").GetComponent<HealthBar>();
 
         Debug.Log(SongToBePlayed.songInfo.m_title);
@@ -246,8 +267,15 @@ public class Onload : MonoBehaviour {
                 }
             }
         }
+        if (health.isDead())
+        {
+            // TODO: Death animation?
+            populate(false);
+            SceneManager.LoadScene("resultscreen");
+        }
         if (songPos >= SongPosition.instance.songLength + LOOKAHEAD_INTERVAL)
         {
+            populate(true);
             SceneManager.LoadScene("resultscreen");
         }
 
