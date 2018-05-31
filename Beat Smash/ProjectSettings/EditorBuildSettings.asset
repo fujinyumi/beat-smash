@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/resultscreen.unity
     guid: 5ef1f6c1f9d90aa49a019377cb49358c
+  - enabled: 1
+    path: Assets/Scenes/titlescreen.unity
+    guid: f201ef1d73df59a4cb85ba33ef13bb45
+  - enabled: 1
+    path: Assets/Scenes/menuscreen.unity
+    guid: 01b4c7dcbcf5bd84db1bfe63a9b1c6e0
   m_configObjects: {}
