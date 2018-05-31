@@ -34,7 +34,20 @@ public class SongScrollList : MonoBehaviour {
             var song_name = b.name;
             var audio_path = "Audio/" + b.name;
             var btmp_path = "Beatmaps/" + b.name;
-            Debug.Log(File.Exists("C:/Users/miche/Documents/GitHub/beat-smash/Beat Smash/Assets/Resources/Beatmaps/delilah.txt"));
+
+            var full_audio_path = System.IO.Path.GetFullPath("Assets/Resources/" + audio_path + ".wav");
+            var full_btmp_path = System.IO.Path.GetFullPath("Assets/Resources/" + btmp_path + ".txt");
+            var has_audio = File.Exists(full_audio_path);
+            var has_btmp = File.Exists(full_btmp_path);
+            // Debug.Log(has_audio);
+            // Debug.Log(full_audio_path);
+            // Debug.Log(has_btmp);
+            // Debug.Log(full_btmp_path);
+            if(!has_audio || !has_btmp){
+                // Debug.LogError("Couldn't find both audio and beatmap file.");
+                Debug.Log("Couldn't find both audio and beatmap file.");
+            }
+
             SongInfo song = new SongInfo(audio_path, btmp_path, song_name, "0");
             songList.Add(song);
         }
