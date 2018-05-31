@@ -9,7 +9,7 @@ public class SongScrollList : MonoBehaviour {
 
     public List<SongInfo> songList = new List<SongInfo>();
     public Transform contentPanel;
-    public SongButton button;
+    //public SongButton button;
 
 
     // Use this for initialization
@@ -30,6 +30,7 @@ public class SongScrollList : MonoBehaviour {
     // create buttons from songList
     private void AddButtons()
     {
+        SortSongList();
         for (int i = 0; i < songList.Count; i++)
         {
             SongInfo songInfo = songList[i];
@@ -39,5 +40,30 @@ public class SongScrollList : MonoBehaviour {
             songButton.Setup(songInfo);
         }
     }
+
+    // removes all buttons from Unity content panel
+    private void RemoveButtons()
+    {
+       while (contentPanel.childCount > 0)
+        {
+            GameObject toRemove = transform.GetChild(0).gameObject;
+            Destroy(toRemove);
+        }
+    }
+
+    private void SortSongList()
+    {
+        songList.Sort((x, y) => x.m_title.CompareTo(y.m_title));
+    }
+
+    public void AddNewSong(SongInfo newSong)
+    {
+        songList.Add(newSong);
+        SortSongList();
+        RemoveButtons();
+        AddButtons();
+    }
+
+
 
 }
