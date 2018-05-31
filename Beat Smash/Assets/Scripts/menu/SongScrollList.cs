@@ -16,15 +16,6 @@ public class SongScrollList : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        //TODO: Pre processiing here: should update songList
-        /* SongInfo structure: pathToAudio, pathToBeatmap, title, length (perhaps), high score (perhaps) 
-
-           Check if audio/beatmaps are both available 
-           1) Look into the directory 
-           2) Same file names
-           3) Report error if one or the other can't be found
-        */
-
         // Load all song/beatmap information 
         var beatmaps = Resources.LoadAll("Beatmaps", typeof(TextAsset));
         foreach (var b in beatmaps)
@@ -52,16 +43,6 @@ public class SongScrollList : MonoBehaviour {
             songList.Add(song);
         }
 
-        // SongInfo s0 = new SongInfo("Audio/radio", "Beatmaps/radio", "radio", "0");
-        // SongInfo s1 = new SongInfo("Audio/STRM_MAP_C3", "Beatmaps/Test", "STRM_MAP_C3", "1");
-        // SongInfo s2 = new SongInfo("Audio/TestA", "Beatmaps/Test", "TestA", "2");
-        // SongInfo s3 = new SongInfo("Audio/TestB", "Beatmaps/Test", "TestB", "3");
-        // SongInfo s4 = new SongInfo("Audio/delilah", "Beatmaps/delilah", "Delilah", "4");
-        // songList.Add(s0);
-        // songList.Add(s1);
-        // songList.Add(s2);
-        // songList.Add(s3);
-        // songList.Add(s4);
         AddButtons();
     }
     
@@ -82,11 +63,42 @@ public class SongScrollList : MonoBehaviour {
     // removes all buttons from Unity content panel
     private void RemoveButtons()
     {
-       while (contentPanel.childCount > 0)
+       Debug.Log("Removing buttons");
+       int count = 0;
+       //while (contentPanel.childCount > 0)
+       // {
+       //     GameObject toRemove = transform.GetChild(0).gameObject;
+       //     if (toRemove == null)
+       //     {
+       //         Debug.Log("null obj");
+       //     }
+
+
+       //     Destroy(toRemove);
+
+
+       //     // TODO: remove later
+       //     count++;
+       //     if (count > 10)
+       //     {
+       //         Debug.Log("infinite loop?");
+       //         break;
+       //     }
+       // }
+
+        foreach(Transform child in contentPanel)
         {
-            GameObject toRemove = transform.GetChild(0).gameObject;
-            Destroy(toRemove);
+            Destroy(child.gameObject);
+            count++;
+            if (count > 10)
+            {
+                Debug.Log("infinite loop?");
+                break;
+            }
         }
+
+
+
     }
 
     private void SortSongList()
@@ -94,6 +106,7 @@ public class SongScrollList : MonoBehaviour {
         songList.Sort((x, y) => x.m_title.CompareTo(y.m_title));
     }
 
+    // called when user selects new beatmap and song 
     public void AddNewSong(SongInfo newSong)
     {
         songList.Add(newSong);

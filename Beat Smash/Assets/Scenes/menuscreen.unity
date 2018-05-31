@@ -896,6 +896,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce82199141688e469383a7fe2d5a967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 419928489}
+  songField: {fileID: 391461947}
+  beatmapField: {fileID: 1890328571}
+  titleField: {fileID: 394786919}
+  notice: {fileID: 302254128}
+  scrollList: {fileID: 1895884112}
+  popWindow: {fileID: 2060851176}
 --- !u!1 &438445699
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,9 +1198,8 @@ GameObject:
   - component: {fileID: 627336138}
   - component: {fileID: 627336137}
   - component: {fileID: 627336136}
-  - component: {fileID: 627336139}
   m_Layer: 5
-  m_Name: NewBeatmapButton
+  m_Name: AddSongButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1292,18 +1298,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 627336134}
---- !u!114 &627336139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 627336134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d62a298c765f47548a0164ce47cbdebe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button: {fileID: 627336136}
 --- !u!1 &641702296
 GameObject:
   m_ObjectHideFlags: 0
@@ -2162,7 +2156,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Add New Beatmap
+  m_Text: Add Song
 --- !u!222 &1244553230
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2993,7 +2987,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 401770815}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3441,7 +3435,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000008911107, y: 0}
+  m_AnchoredPosition: {x: -0.000015258789, y: 0}
   m_SizeDelta: {x: -0.010513582, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1895884110

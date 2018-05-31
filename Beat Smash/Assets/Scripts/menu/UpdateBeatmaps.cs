@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEditor;
 using System.IO;
 
-public class UpdateBeatmap : MonoBehaviour {
+public class UpdateBeatmaps : MonoBehaviour {
 
     public Button button;
     public InputField songField;
@@ -13,13 +13,15 @@ public class UpdateBeatmap : MonoBehaviour {
     public InputField titleField;
     public Text notice;
     public SongScrollList scrollList;
+    public GameObject popWindow;
 
-    // Use this for initialization
+   
     void Start () {
-        button.onClick.AddListener(UpdateBeatmaps);
+        button.onClick.AddListener(UpdateSongList);
+        popWindow.SetActive(false);
     }
 	
-    void UpdateBeatmaps()
+    void UpdateSongList()
     {
         string songPath = songField.text;
         string beatmapPath = beatmapField.text;
@@ -28,18 +30,22 @@ public class UpdateBeatmap : MonoBehaviour {
         bool songExists = File.Exists(songPath);
         bool beatmapExists = File.Exists(beatmapPath);
 
-        if (songExists && beatmapExists)
+        if (songExists && beatmapExists && title != "")
         {
-            string newSongPath = "Assets/Resources/Beatmaps/" + title + ".wav";
-            string newBeatmapPath = "Assets/Resources/Beatmaps/" + title + ".txt";
-
             // copy beatmaps and audio files to resource folder
-            FileUtil.CopyFileOrDirectory(songPath, newSongPath);
-            FileUtil.CopyFileOrDirectory(beatmapPath, newBeatmapPath);
+            FileUtil.CopyFileOrDirectory(songPath, "Assets/Resources/Audio/" + title + ".wav");
+            FileUtil.CopyFileOrDirectory(beatmapPath, "Assets/Resources/Beatmaps/" + title + ".txt");
 
             // update buttons on screen
+            Debug.Log("new song info");
+            string newSongPath = "Audio/" + title;
+            string newBeatmapPath = "Beatmaps/" + title;
             SongInfo newSongInfo = new SongInfo(newSongPath, newBeatmapPath, title, "length not added");
             scrollList.AddNewSong(newSongInfo);
+
+            //close window and reset
+            ResetWindow();
+            popWindow.SetActive(false);
         }
         else if (!songExists)
         {
@@ -49,7 +55,24 @@ public class UpdateBeatmap : MonoBehaviour {
         {
             notice.text = "Beatmap file does not exist!";
         }
+        else if (title == "")
+        {
+            notice.text = "Please enter title";
+        }
+    }
 
+
+    private void ResetWindow()
+    {
+        songField.text = "";
+        beatmapField.text = "";
+        titleField.text = "";
+        notice.text = "";
+    }
+
+    public void Show()
+    {
+        popWindow.SetActive(true);
     }
 
 

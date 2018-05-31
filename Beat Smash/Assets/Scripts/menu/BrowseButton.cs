@@ -21,7 +21,7 @@ public class BrowseButton : MonoBehaviour {
         }
         else
         {
-            button.onClick.AddListener(delegate { Browse("Select Beatmap", "btmp"); });
+            button.onClick.AddListener(delegate { Browse("Select Beatmap", "txt"); });
         }
 	}
 
