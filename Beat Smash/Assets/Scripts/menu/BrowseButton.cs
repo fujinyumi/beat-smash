@@ -17,7 +17,7 @@ public class BrowseButton : MonoBehaviour {
 	void Start () {
         if (isSong)
         {
-            button.onClick.AddListener( delegate { Browse("Select Song", "wav"); } );
+            button.onClick.AddListener(delegate { Browse("Select Song", "wav"); } );
         }
         else
         {

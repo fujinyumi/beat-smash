@@ -62,6 +62,18 @@ public class UpdateBeatmaps : MonoBehaviour {
     }
 
 
+    //string audioPath = SongToBePlayed.songInfo.m_pathToAudio;
+    //AudioClip sound = Resources.Load<AudioClip>(audioPath);
+    //myAudio.clip = sound;
+
+    //    initialDspTime = (float) AudioSettings.dspTime;
+
+    //play audio with delay
+    //myAudio.PlayDelayed(TIME_BEFORE_AUDIO_START);
+
+    //    songLength = myAudio.clip.length*1000;
+
+
     private void ResetWindow()
     {
         songField.text = "";

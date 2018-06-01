@@ -63,38 +63,10 @@ public class SongScrollList : MonoBehaviour {
     // removes all buttons from Unity content panel
     private void RemoveButtons()
     {
-       Debug.Log("Removing buttons");
-       int count = 0;
-       //while (contentPanel.childCount > 0)
-       // {
-       //     GameObject toRemove = transform.GetChild(0).gameObject;
-       //     if (toRemove == null)
-       //     {
-       //         Debug.Log("null obj");
-       //     }
-
-
-       //     Destroy(toRemove);
-
-
-       //     // TODO: remove later
-       //     count++;
-       //     if (count > 10)
-       //     {
-       //         Debug.Log("infinite loop?");
-       //         break;
-       //     }
-       // }
 
         foreach(Transform child in contentPanel)
         {
             Destroy(child.gameObject);
-            count++;
-            if (count > 10)
-            {
-                Debug.Log("infinite loop?");
-                break;
-            }
         }
 
 
