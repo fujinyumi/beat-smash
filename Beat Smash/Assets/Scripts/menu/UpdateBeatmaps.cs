@@ -36,6 +36,9 @@ public class UpdateBeatmaps : MonoBehaviour {
             FileUtil.CopyFileOrDirectory(songPath, "Assets/Resources/Audio/" + title + ".wav");
             FileUtil.CopyFileOrDirectory(beatmapPath, "Assets/Resources/Beatmaps/" + title + ".txt");
 
+            // Refresh asset folder for Unity
+            AssetDatabase.Refresh();
+
             // update buttons on screen
             Debug.Log("new song info");
             string newSongPath = "Audio/" + title;
