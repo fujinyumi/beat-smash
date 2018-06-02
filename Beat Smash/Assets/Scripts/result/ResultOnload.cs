@@ -49,7 +49,6 @@ public class ResultOnload : MonoBehaviour {
 	
 
 	void Update () {
-        // TODO: change screen to menu 
         if (Input.GetKeyUp(KeyCode.Return))
         {
             SceneManager.LoadScene("menuscreen");
