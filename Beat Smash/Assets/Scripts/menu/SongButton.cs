@@ -34,6 +34,11 @@ public class SongButton : MonoBehaviour {
 
         // update SongToBePlayed
         SongToBePlayed.songInfo = m_songInfo;
+
+        Debug.Log(SongToBePlayed.songInfo.m_title);
+        Debug.Log(SongToBePlayed.songInfo.m_pathToAudio);
+        Debug.Log(SongToBePlayed.songInfo.m_pathToBeatmap);
+
     }
 
 }
