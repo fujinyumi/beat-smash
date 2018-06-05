@@ -10,10 +10,7 @@ public class SongScrollList : MonoBehaviour {
 
     public List<SongInfo> songList = new List<SongInfo>();
     public Transform contentPanel;
-    //public SongButton button;
 
-
-    // Use this for initialization
     void Start () {
 
         // Load all song/beatmap information 
@@ -63,14 +60,10 @@ public class SongScrollList : MonoBehaviour {
     // removes all buttons from Unity content panel
     private void RemoveButtons()
     {
-
         foreach(Transform child in contentPanel)
         {
             Destroy(child.gameObject);
         }
-
-
-
     }
 
     private void SortSongList()
