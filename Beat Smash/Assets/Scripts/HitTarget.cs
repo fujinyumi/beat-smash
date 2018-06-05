@@ -21,7 +21,6 @@ public class HitTarget : BeatTarget {
         }
         else { Debug.Log("Error retrieving sprite layer."); }
 
-        Debug.Log(sprite.sortingLayerName);
         BeatInfo myBeatInfo = GetBeatInfo();
         Lane myLane = myBeatInfo.GetLane();
 

@@ -27,6 +27,9 @@ public class Onload : MonoBehaviour {
     SortedDictionary<int, List<BeatInfo>> upcomingBeats;
     //enumerator for this dictionary that will progressively advance.
     SortedDictionary<int, List<BeatInfo>>.Enumerator upcomingBeatsEnumerator;
+
+    private int totalPossibleScore;
+
     //score and health display
     public static ScoreDisplay score;
     public static ScoreDisplay combo;
@@ -57,7 +60,34 @@ public class Onload : MonoBehaviour {
         if (calculateGrade)
         {
             // calculate accurate grade
-            ResultStats.Grade = "A";
+            int calculatedScore = health.getGreat()*InputReaction.SCORE_GREAT + health.getGood()*InputReaction.SCORE_GOOD 
+                + health.getBad() * InputReaction.SCORE_BAD;
+            if (totalPossibleScore != 0)
+            {
+                float ratio = (float)calculatedScore / (float)totalPossibleScore * 100;
+                
+                //A
+                if(ratio > 80)
+                {
+                    ResultStats.Grade = "A";
+                }
+                //B
+                else if (ratio > 60)
+                {
+                    ResultStats.Grade = "B";
+                }
+                //C
+                else if (ratio > 40)
+                {
+                    ResultStats.Grade = "C";
+                }
+                //D
+                else
+                {
+                    ResultStats.Grade = "D";
+                }
+            }
+            else ResultStats.Grade = "A";
         } else { ResultStats.Grade = "F"; }
 
         ResultStats.Score = score.getScore();
@@ -136,8 +166,8 @@ public class Onload : MonoBehaviour {
         TextAsset btmp_file = Resources.Load(btmp_path) as TextAsset;
         var btmp_raw = btmp_file.text.Split('\n');
 
-        var firstLine = 0;
-        var line_count = 0;
+        int firstLine = 0;
+        int line_count = 0;
         foreach(var line in btmp_raw)
         {        
             line_count++;
@@ -240,6 +270,8 @@ public class Onload : MonoBehaviour {
             else { firstLine = 1; Debug.Log("First line skipped"); }
 
         } // end of btmp_raw foreach loop
+
+        totalPossibleScore = InputReaction.SCORE_GREAT * line_count;
 
         upcomingBeatsEnumerator = upcomingBeats.GetEnumerator();
         //move to first position

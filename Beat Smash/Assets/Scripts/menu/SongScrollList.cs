@@ -17,8 +17,6 @@ public class SongScrollList : MonoBehaviour {
         var beatmaps = Resources.LoadAll("Beatmaps", typeof(TextAsset));
         foreach (var b in beatmaps)
         {
-            Debug.Log(b.name);
-
             var song_name = b.name;
             var audio_path = "Audio/" + b.name;
             var btmp_path = "Beatmaps/" + b.name;
@@ -27,13 +25,11 @@ public class SongScrollList : MonoBehaviour {
             var full_btmp_path = System.IO.Path.GetFullPath("Assets/Resources/" + btmp_path + ".txt");
             var has_audio = File.Exists(full_audio_path);
             var has_btmp = File.Exists(full_btmp_path);
-            // Debug.Log(has_audio);
-            // Debug.Log(full_audio_path);
-            // Debug.Log(has_btmp);
-            // Debug.Log(full_btmp_path);
+
             if(!has_audio || !has_btmp){
-                // Debug.LogError("Couldn't find both audio and beatmap file.");
-                Debug.Log("Couldn't find both audio and beatmap file.");
+               // Debug.LogError("Couldn't find both audio and beatmap file.");
+               Debug.Log("Couldn't find both audio and beatmap file.");
+               continue;
             }
 
             SongInfo song = new SongInfo(audio_path, btmp_path, song_name, "0");
