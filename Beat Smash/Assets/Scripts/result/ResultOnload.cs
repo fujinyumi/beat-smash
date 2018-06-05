@@ -41,9 +41,9 @@ public class ResultOnload : MonoBehaviour {
         Debug.Log("Miss:" + ResultStats.Miss.ToString());
 
         title = GameObject.Find("TitleVar").GetComponent<Text>();
-        title.text = "5";
-        length = GameObject.Find("LengthVar").GetComponent<Text>();
-        length.text = "6";
+        title.text = SongToBePlayed.songInfo.m_title;
+        //length = GameObject.Find("LengthVar").GetComponent<Text>();
+        //length.text = "6";
 
     }
 	
