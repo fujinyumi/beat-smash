@@ -89,7 +89,6 @@ public class Onload : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        // Debug.Log("Beginning");
         //member variable initialization
         beatsDone = false;
         totalGreats = totalGoods = totalBads = totalMisses = 0;
@@ -103,7 +102,6 @@ public class Onload : MonoBehaviour {
         health = GameObject.FindWithTag("health").GetComponent<HealthBar>();
 
         SongInfo cur_song = SongToBePlayed.songInfo;
-        Debug.Log(cur_song.m_title + " " + cur_song.m_pathToBeatmap + " " + cur_song.m_pathToAudio);
         /* FOR MICHELLE AND OTHER PREPROCESSORS
          * Insert preprocessing script here.
          * INPUT: Read the beatmap file in (using System.IO.File?) 
@@ -113,55 +111,57 @@ public class Onload : MonoBehaviour {
          * process the beatmap file and consolidate beats with the same ms offset into the List of each key-value pair
          */
 
-         /* Current - load file from a set path
-           TO DO: 
-             - Load file from a directory; user specified file name
-             - Grab path to file from the specified SongToBePlayed object
-             OR 
-             - Load file from any directory that the user specifies
-        */
+        /* Current - load file from a set path
+          TO DO: 
+            - Load file from a directory; user specified file name
+            - Grab path to file from the specified SongToBePlayed object
+            OR 
+            - Load file from any directory that the user specifies
+       */
+
+        if (SongToBePlayed.songInfo == null)
+        {
+            Debug.Log("You tried to play a game with no song specified.");
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                Application.Quit();
+            #endif
+
+            return;
+        }
 
         string btmp_path = SongToBePlayed.songInfo.m_pathToBeatmap;
 
         TextAsset btmp_file = Resources.Load(btmp_path) as TextAsset;
-        Debug.Log(btmp_file.text);
         var btmp_raw = btmp_file.text.Split('\n');
-        // Debug.Log("Last line length = " + btmp_raw[807].Length);
 
         var firstLine = 0;
         var line_count = 0;
         foreach(var line in btmp_raw)
         {        
             line_count++;
-            /** REMEMBER TO REMOVE Debug.Log'S AFTER TESTING **/
 
             /** THE BEATMAP FILE FORMAT IS: 
                     bpm 
                     timestamp, lane, beat type, duration
                     values[0], [1],  [2],       [3]
             **/
-            Debug.Log("Cur line = " + line_count);
             // If the firstLine has already been read, start processing values
             if(firstLine == 1 && line.Length > 0){
 
                 // Get values from each line (beat)
                 var values = line.Split(',');
-                // foreach(var i in values){
-                //     Debug.Log(i);
-                // }
             
                 // ** Beat Timestamp ** 
                 int beat_timestamp = -1;
-                Debug.Log("timestamp = " + values[0]);
                 if (int.TryParse(values[0], out beat_timestamp)) {
-                    // Debug.Log("beat_timestamp " + beat_timestamp);
                 }
                 else
                     Debug.Log("beat_timestamp could not be parsed: " + beat_timestamp);
 
                 float beat_offset = -1;
                 if (float.TryParse(values[0], out beat_offset)){
-                    // Debug.Log(beat_offset);
                 }
                 else
                     Debug.Log("beat_offset could not be parsed.");
@@ -207,8 +207,6 @@ public class Onload : MonoBehaviour {
                 int beat_duration = -1;
                 if(values.Length > 3) {
                     if (int.TryParse(values[3], out beat_duration)){
-                        Debug.Log("beat_duration = ");
-                        Debug.Log(beat_duration);
                         var tmpBeat = new BeatInfo(beat_lane, beat_type, beat_offset, beat_duration);
                         newBeat = tmpBeat; 
                     }
@@ -243,11 +241,6 @@ public class Onload : MonoBehaviour {
 
         } // end of btmp_raw foreach loop
 
-        // /* TO EVENTUALLY REMOVE: HARD CODED DATA */
-        // // TestA testBeatsA = new TestA();
-        // // testBeatsA.LoadUpcomingBeats(upcomingBeats);
-
-        Debug.Log("upcomingBeats = " + upcomingBeats);
         upcomingBeatsEnumerator = upcomingBeats.GetEnumerator();
         //move to first position
         if (!upcomingBeatsEnumerator.MoveNext()) beatsDone = true;

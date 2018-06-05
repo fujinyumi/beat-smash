@@ -58,6 +58,17 @@ public class SongPosition : MonoBehaviour {
         myAudio = GetComponent<AudioSource>();
 
         //Get audio clip from path
+        if (SongToBePlayed.songInfo == null)
+        {
+            Debug.Log("You tried to play a game with no song specified.");
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                Application.Quit();
+            #endif
+
+            return;
+        }
         string audioPath = SongToBePlayed.songInfo.m_pathToAudio;
         AudioClip sound = Resources.Load<AudioClip>(audioPath);
         myAudio.clip = sound;
