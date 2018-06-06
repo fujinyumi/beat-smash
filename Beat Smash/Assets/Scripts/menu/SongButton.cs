@@ -20,8 +20,7 @@ public class SongButton : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        string audioPath = m_songInfo.m_pathToAudio;
-        sound = Resources.Load<AudioClip>(audioPath);
+        sound = null;
 
         myPlayer = GameObject.Find("AudioPlayer").GetComponent<AudioSource>();
 
@@ -74,6 +73,13 @@ public class SongButton : MonoBehaviour {
 
     public void playSong()
     {
+        //only load on first attempt to play: for performance
+        if(sound == null)
+        {
+            string audioPath = m_songInfo.m_pathToAudio;
+            sound = Resources.Load<AudioClip>(audioPath);
+        }
+
         myPlayer.clip = sound;
         myPlayer.Play();
     }

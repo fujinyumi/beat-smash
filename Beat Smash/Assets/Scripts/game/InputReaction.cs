@@ -11,8 +11,8 @@ public class InputReaction : MonoBehaviour {
     public const int INTERVAL_BAD = 250;
 
     public const int SCORE_GREAT = 100;
-    public const int SCORE_GOOD = 50;
-    public const int SCORE_BAD = 25;
+    public const int SCORE_GOOD = 80;
+    public const int SCORE_BAD = 50;
 
     public string inputKey;
 
