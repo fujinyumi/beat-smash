@@ -14,6 +14,9 @@ public static class SongToBePlayed  {
         }
         set
         {
+            if (m_songInfo != null && m_songInfo != value) {
+                GameObject.Find(m_songInfo.m_title).GetComponent<SongButton>().SetInactive();
+             }
             m_songInfo = value;
         }
     }
