@@ -14,8 +14,16 @@ public class SongButton : MonoBehaviour {
     private Outline myOutline;
     private Image myImage;
 
+    private AudioSource myPlayer;
+    private AudioClip sound;
+
 	// Use this for initialization
 	void Start () {
+
+        string audioPath = m_songInfo.m_pathToAudio;
+        sound = Resources.Load<AudioClip>(audioPath);
+
+        myPlayer = GameObject.Find("AudioPlayer").GetComponent<AudioSource>();
 
         gameObject.name = m_songInfo.m_title;
 
@@ -62,6 +70,12 @@ public class SongButton : MonoBehaviour {
         myImage.color = new Vector4((200f/255f), (22f / 255f), (112f / 255f), 1f);
         myOutline.effectColor = new Vector4(0f, 0f, 0f, 0f);
         myOutlineScript.enabled = false;
+    }
+
+    public void playSong()
+    {
+        myPlayer.clip = sound;
+        myPlayer.Play();
     }
 }
 
