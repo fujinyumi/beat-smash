@@ -52,9 +52,12 @@ public class ScoreDisplay : MonoBehaviour {
         comboText.text = "";
     }
 
-    public void UpdateScore(int increase)
+    public void UpdateScore(int increase, int bad = 0)
     {
-        incrementCombo();
+        if (bad == 0)
+        {
+            incrementCombo();
+        } else { missCombo(); }
         score += (increase * combo);
         scoreText.text = "Score: " + score.ToString();
     }

@@ -144,7 +144,7 @@ public class InputReaction : MonoBehaviour {
                 }
                 else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_BAD)
                 {
-                    Onload.score.UpdateScore(SCORE_BAD);
+                    Onload.score.UpdateScore(SCORE_BAD, 1);
                     Onload.health.decHealth(1);
                     Debug.Log("Bad");
                     hitType = HitType.Bad;
