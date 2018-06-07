@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TextEbb : MonoBehaviour {
 
     public int increaseInterval = 50;
+    public float minTextOpacity = 0.5f;
 
     private bool isIntensifying = false;
     private int currentTick = 0;
@@ -27,7 +28,7 @@ public class TextEbb : MonoBehaviour {
     {
         //for performance reasons, only do this if there is any text
         if(myText.text != "") {
-            if (currentTick > increaseInterval)
+            if ( minTextOpacity == 0.0f && currentTick > increaseInterval)
             {
                 isIntensifying = isIntensifying ? false : true;
                 currentTick = 0;
@@ -35,16 +36,31 @@ public class TextEbb : MonoBehaviour {
 
             if (isIntensifying)
             {
-                myText.color = new Color(myText.color.r, myText.color.g, myText.color.b, myText.color.a + 1f/(float)increaseInterval);
+                if (minTextOpacity != 0.0f && myText.color.a + 1f / (float)increaseInterval > 1f)
+                {
+                    myText.color = new Color(myText.color.r, myText.color.g, myText.color.b, 1f);
+                    isIntensifying = false;
+                }
+                else
+                {
+                    myText.color = new Color(myText.color.r, myText.color.g, myText.color.b, myText.color.a + 1f / (float)increaseInterval);
+                }
                 myOutline.effectColor = new Color(myOutline.effectColor.r, myOutline.effectColor.g, myOutline.effectColor.b, myOutline.effectColor.a + startOpacity / (float)increaseInterval);
             }
             else
             {
-                myText.color = new Color(myText.color.r, myText.color.g, myText.color.b, myText.color.a - 1f / (float)increaseInterval);
+                if ( minTextOpacity != 0.0f && myText.color.a - 1f / (float)increaseInterval < minTextOpacity)
+                {
+                    myText.color = new Color(myText.color.r, myText.color.g, myText.color.b, minTextOpacity);
+                    isIntensifying = true;
+                }
+                else
+                {
+                    myText.color = new Color(myText.color.r, myText.color.g, myText.color.b, myText.color.a - 1f / (float)increaseInterval);
+                }
                 myOutline.effectColor = new Color(myOutline.effectColor.r, myOutline.effectColor.g, myOutline.effectColor.b, myOutline.effectColor.a - startOpacity / (float)increaseInterval);
 
             }
-
             currentTick++;
         }//endif
     }
