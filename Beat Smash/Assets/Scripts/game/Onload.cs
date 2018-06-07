@@ -267,7 +267,7 @@ public class Onload : MonoBehaviour {
                     upcomingBeats.Add(beat_timestamp, beatSet);
                 }
             } // end firstLine if statement
-            else { firstLine = 1; Debug.Log("First line skipped"); }
+            else { firstLine = 1; //Debug.Log("First line skipped"); }
 
         } // end of btmp_raw foreach loop
 
