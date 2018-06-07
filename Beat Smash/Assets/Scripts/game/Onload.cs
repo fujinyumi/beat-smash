@@ -184,38 +184,46 @@ public class Onload : MonoBehaviour {
                     values[0], [1],  [2],       [3]
             **/
             // If the firstLine has already been read, start processing values
-            if(firstLine == 1 && line.Length > 0){
+            if (firstLine == 1 && line.Length > 0)
+            {
 
                 // Get values from each line (beat)
                 var values = line.Split(',');
-            
+
                 // ** Beat Timestamp ** 
                 int beat_timestamp = -1;
-                if (int.TryParse(values[0], out beat_timestamp)) {
+                if (int.TryParse(values[0], out beat_timestamp))
+                {
                 }
                 else
                     Debug.Log("beat_timestamp could not be parsed: " + beat_timestamp);
 
                 float beat_offset = -1;
-                if (float.TryParse(values[0], out beat_offset)){
+                if (float.TryParse(values[0], out beat_offset))
+                {
                 }
                 else
                     Debug.Log("beat_offset could not be parsed.");
-                    
+
                 // ** Beat Lane **     
                 Lane beat_lane = Lane.UnInit;
                 string raw_beat_lane = values[1];
                 switch (raw_beat_lane)
                 {
-                    case "D": beat_lane = Lane.D;
+                    case "D":
+                        beat_lane = Lane.D;
                         break;
-                    case "F": beat_lane = Lane.F;
+                    case "F":
+                        beat_lane = Lane.F;
                         break;
-                    case "Space": beat_lane = Lane.Space;
+                    case "Space":
+                        beat_lane = Lane.Space;
                         break;
-                    case "J": beat_lane = Lane.J;
+                    case "J":
+                        beat_lane = Lane.J;
                         break;
-                    case "K": beat_lane = Lane.K;
+                    case "K":
+                        beat_lane = Lane.K;
                         break;
                     default:
                         Debug.Log("No such key lane: " + beat_lane);
@@ -227,12 +235,15 @@ public class Onload : MonoBehaviour {
                 BeatType beat_type = BeatType.UnInit;
                 char raw_beat_type = values[2][0];
 
-                switch(raw_beat_type){
-                    case '0': beat_type = BeatType.Hit;
+                switch (raw_beat_type)
+                {
+                    case '0':
+                        beat_type = BeatType.Hit;
                         break;
-                    case '1': beat_type = BeatType.Held;
+                    case '1':
+                        beat_type = BeatType.Held;
                         break;
-                    default: 
+                    default:
                         Debug.Log("No such beat type: " + raw_beat_type);
                         break;
                 }
@@ -241,10 +252,12 @@ public class Onload : MonoBehaviour {
 
                 // ** Beat Duration ** 
                 int beat_duration = -1;
-                if(values.Length > 3) {
-                    if (int.TryParse(values[3], out beat_duration)){
+                if (values.Length > 3)
+                {
+                    if (int.TryParse(values[3], out beat_duration))
+                    {
                         var tmpBeat = new BeatInfo(beat_lane, beat_type, beat_offset, beat_duration);
-                        newBeat = tmpBeat; 
+                        newBeat = tmpBeat;
                     }
                     else
                         Debug.Log("beat_duration could not be parsed.");
@@ -253,8 +266,9 @@ public class Onload : MonoBehaviour {
 
                 //the set of beats for each time stamp
                 List<BeatInfo> beatSet = new List<BeatInfo>();
-                if(upcomingBeats.ContainsKey(beat_timestamp)){
-                    
+                if (upcomingBeats.ContainsKey(beat_timestamp))
+                {
+
                     if (upcomingBeats.TryGetValue(beat_timestamp, out beatSet))
                     {
                         beatSet.Add(newBeat);
@@ -268,12 +282,13 @@ public class Onload : MonoBehaviour {
                         Debug.Log("Value is not found.");
                     }
                 }
-                else {                        
+                else
+                {
                     beatSet.Add(newBeat);
                     upcomingBeats.Add(beat_timestamp, beatSet);
                 }
             } // end firstLine if statement
-            else { firstLine = 1; //Debug.Log("First line skipped"); }
+            else { firstLine = 1; }//Debug.Log("First line skipped"); }
 
         } // end of btmp_raw foreach loop
 
