@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 125263759}
   - component: {fileID: 125263761}
   - component: {fileID: 125263762}
+  - component: {fileID: 125263763}
   m_Layer: 5
   m_Name: Grade
   m_TagString: Untagged
@@ -214,6 +215,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d2cb234bc606b40b8df0aa9b374c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &125263763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 125263757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32f6747a8fdd54c4e83a445038d2c268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  increaseInterval: 50
+  minTextOpacity: 0.5
+  startOpacity: 0
 --- !u!1 &221699910
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,6 +487,7 @@ GameObject:
   m_Component:
   - component: {fileID: 615857614}
   - component: {fileID: 615857613}
+  - component: {fileID: 615857615}
   m_Layer: 0
   m_Name: BEAT-trice
   m_TagString: Untagged
@@ -537,6 +553,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -15}
+--- !u!114 &615857615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 615857612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c705d6b61ebd284d9c6d0b7a00e5c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatStrength: 0.5
 --- !u!1 &681912813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1531,6 +1559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   increaseInterval: 50
+  minTextOpacity: 0.5
   startOpacity: 1
 --- !u!114 &1365967180
 MonoBehaviour:
@@ -1813,6 +1842,7 @@ GameObject:
   - component: {fileID: 1435034523}
   - component: {fileID: 1435034525}
   - component: {fileID: 1435034526}
+  - component: {fileID: 1435034527}
   m_Layer: 5
   m_Name: Results
   m_TagString: Untagged
@@ -1914,6 +1944,20 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 3, y: 3}
   m_UseGraphicAlpha: 1
+--- !u!114 &1435034527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1435034521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32f6747a8fdd54c4e83a445038d2c268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  increaseInterval: 50
+  minTextOpacity: 0.5
+  startOpacity: 0
 --- !u!1 &1442600923
 GameObject:
   m_ObjectHideFlags: 0

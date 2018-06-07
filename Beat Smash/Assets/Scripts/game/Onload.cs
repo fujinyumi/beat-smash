@@ -6,6 +6,7 @@ using UnityEngine;
 
 public enum Lane { D, F, Space, J, K, UnInit };
 public enum BeatType { Hit, Held, UnInit };
+public enum HitType { Great, Good, Bad, Miss, UnInit };
 
 public class Onload : MonoBehaviour {
 
@@ -34,6 +35,11 @@ public class Onload : MonoBehaviour {
     public static ScoreDisplay score;
     public static ScoreDisplay combo;
     public static HealthBar health;
+    //public static HitTypeDisplay HitTypeD;
+    //public static HitTypeDisplay HitTypeF;
+    //public static HitTypeDisplay HitTypeSpace;
+    //public static HitTypeDisplay HitTypeJ;
+    //public static HitTypeDisplay HitTypeK;
 
     /* "GETTER" Functions */
 
