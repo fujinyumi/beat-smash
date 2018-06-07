@@ -271,7 +271,13 @@ public class Onload : MonoBehaviour {
 
         } // end of btmp_raw foreach loop
 
-        totalPossibleScore = InputReaction.SCORE_GREAT * line_count;
+        //NO BPM PROVIDED
+        if(line_count < 1)
+        {
+            Debug.Log("The beatmap file is malformed.");
+            totalPossibleScore = 0;
+        }
+        else { totalPossibleScore = InputReaction.SCORE_GREAT * (line_count-1); }
 
         upcomingBeatsEnumerator = upcomingBeats.GetEnumerator();
         //move to first position
