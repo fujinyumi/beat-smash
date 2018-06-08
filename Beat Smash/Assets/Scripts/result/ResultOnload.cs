@@ -23,34 +23,33 @@ public class ResultOnload : MonoBehaviour {
 	void Start () {
 
         grade = GameObject.Find("Grade").GetComponent<Text>();
-        grade.text = "A";
+        grade.text = ResultStats.Grade;
         score = GameObject.Find("ScoreVar").GetComponent<Text>();
-        score.text = "a score";
+        score.text = ResultStats.Score.ToString();
         combo = GameObject.Find("ComboVar").GetComponent<Text>();
-        combo.text = "a combo";
+        combo.text = ResultStats.MaxCombo.ToString();
 
         great = GameObject.Find("GreatVar").GetComponent<Text>();
-        great.text = "1";
+        great.text = ResultStats.Great.ToString();
         good = GameObject.Find("GoodVar").GetComponent<Text>();
-        good.text = "2";
+        good.text = ResultStats.Good.ToString();
         bad = GameObject.Find("BadVar").GetComponent<Text>();
-        bad.text = "3";
+        bad.text = ResultStats.Bad.ToString();
         miss = GameObject.Find("MissVar").GetComponent<Text>();
-        miss.text = "4";
+        miss.text = ResultStats.Miss.ToString();
 
         title = GameObject.Find("TitleVar").GetComponent<Text>();
-        title.text = "5";
-        length = GameObject.Find("LengthVar").GetComponent<Text>();
-        length.text = "6";
+        title.text = SongToBePlayed.songInfo.m_title;
+        //length = GameObject.Find("LengthVar").GetComponent<Text>();
+        //length.text = "6";
 
     }
 	
 
 	void Update () {
-        // TODO: change screen to menu 
         if (Input.GetKeyUp(KeyCode.Return))
         {
-            SceneManager.LoadScene("gamescreen");
+            SceneManager.LoadScene("menuscreen");
         }
     }
 

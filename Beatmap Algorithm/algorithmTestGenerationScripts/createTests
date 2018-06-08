@@ -1,0 +1,14 @@
+#!/bin/bash
+
+for i in ../music/*.wav
+do
+	j=${i##*/}
+	../bma.py $i ../data/${j%.wav}Easy.txt easy
+	../bma.py $i ../data/${j%.wav}Med.txt medium
+done
+
+for i in ../data/*.txt
+do
+	j=${i##*/}
+	./testGenerator.py $i > ./testFiles/${j%.txt}.cs
+done
