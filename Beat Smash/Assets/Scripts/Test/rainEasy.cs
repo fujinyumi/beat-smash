@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class TestA {
+public class TestRainEasy {
   public void LoadUpcomingBeats(SortedDictionary<int, List<BeatInfo>> upcomingBeats){
 List<BeatInfo> listToInsert0 = new List<BeatInfo>();
 listToInsert0.Add(new BeatInfo(Lane.D, BeatType.Hit, 670));
