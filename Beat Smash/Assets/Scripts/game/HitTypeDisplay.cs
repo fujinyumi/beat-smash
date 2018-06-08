@@ -40,11 +40,16 @@ public class HitTypeDisplay : MonoBehaviour
                 break;
             default:
                 Debug.Log("Cannot find hit type");
+                sprite = null;
                 break;
         }
-        spriteRend.sprite = sprite;
-        gameObject.SetActive(true);
-        Fade();
+
+        if (sprite != null)
+        {
+            spriteRend.sprite = sprite;
+            gameObject.SetActive(true);
+            Fade();
+        }
     }
 
     public void Shake()
