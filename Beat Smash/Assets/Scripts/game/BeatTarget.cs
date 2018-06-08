@@ -7,7 +7,7 @@ public abstract class BeatTarget : MonoBehaviour {
 
     public static Sprite missedBeat;
 
-    public static float onscreenInterval = 0.75f*SongPosition.TIME_BEFORE_AUDIO_START*1000;
+    public static float onscreenInterval = 0.5f*SongPosition.TIME_BEFORE_AUDIO_START*1000;
     public const float OFFSCREEN_Y = 100;
     public const float TOP_Y = 6;
     public const float GOAL_Y = -2.5f;

@@ -19,6 +19,7 @@ public static class SongToBePlayed  {
              }
             if(value != null && m_songInfo != value)
             {
+
                 GameObject.Find(value.m_title).GetComponent<SongButton>().playSong();
             }
             m_songInfo = value;

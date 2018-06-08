@@ -104,7 +104,6 @@ public class InputReaction : MonoBehaviour {
             (songPos - upcomingNotes.Peek().GetBeatInfo().GetOffset()) > INTERVAL_BAD
             )
         {
-            Debug.Log("Miss");
             hitType = HitType.Miss;
             SetHitTypeObject(upcomingNotes.Peek().GetBeatInfo().GetLane(), hitType);
             Onload.score.missCombo();
@@ -119,40 +118,38 @@ public class InputReaction : MonoBehaviour {
             
             if (upcomingNotes.Count > 0)
             {
-                bool set = false;
                 BeatTarget upcoming = upcomingNotes.Peek();
                 if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_GREAT)
                 {
                     Onload.score.UpdateScore(SCORE_GREAT);
                     Onload.health.incHealth(0);
-                    Debug.Log("Great");
                     hitType = HitType.Great;
-                    set = true;
-                }
-                else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_GOOD)
-                {
-                    Onload.score.UpdateScore(SCORE_GOOD);
-                    Onload.health.incHealth(1);
-                    Debug.Log("Good");
-                    hitType = HitType.Good;
-                    set = true;
-                }
-                else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_BAD)
-                {
-                    Onload.score.UpdateScore(SCORE_BAD, 1);
-                    Onload.health.decHealth(1);
-                    Debug.Log("Bad");
-                    hitType = HitType.Bad;
-                    set = true;
-                }
-                if (set)
-                {
-                    SetHitTypeObject(upcoming.GetBeatInfo().GetLane(), hitType);
                     upcoming.DeleteMe();
                     upcomingNotes.Dequeue();
                     myRenderer.sprite = splatted;
                     transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
                 }
+                else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_GOOD)
+                {
+                    Onload.score.UpdateScore(SCORE_GOOD);
+                    Onload.health.incHealth(1);
+                    hitType = HitType.Good;
+                    upcoming.DeleteMe();
+                    upcomingNotes.Dequeue();
+                    myRenderer.sprite = splatted;
+                    transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                }
+                else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_BAD)
+                {
+                    Onload.score.UpdateScore(SCORE_BAD, 1);
+                    Onload.health.decHealth(1);
+                    hitType = HitType.Bad;
+                    upcoming.DeleteMe();
+                    upcomingNotes.Dequeue();
+                    myRenderer.sprite = splatted;
+                    transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                }
+                SetHitTypeObject(upcoming.GetBeatInfo().GetLane(), hitType);
             }
 
         }

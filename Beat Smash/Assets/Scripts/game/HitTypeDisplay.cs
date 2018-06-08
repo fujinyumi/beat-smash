@@ -35,7 +35,6 @@ public class HitTypeDisplay : MonoBehaviour
                 isShaking = true;
                 break;
             default:
-                Debug.Log("Cannot find hit type");
                 sprite = null;
                 break;
         }
