@@ -7,6 +7,11 @@ TagManager:
   - score
   - health
   - combo
+  - HitTypeDLane
+  - HitTypeFLane
+  - HitTypeSpaceLane
+  - HitTypeJLane
+  - HitTypeKLane
   layers:
   - Default
   - TransparentFX
@@ -16,7 +21,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Popup
   - 
   - 
   - 
@@ -43,6 +48,9 @@ TagManager:
   m_SortingLayers:
   - name: ui-below
     uniqueID: 2934937759
+    locked: 0
+  - name: hit-types
+    uniqueID: 2134439543
     locked: 0
   - name: beat-targets
     uniqueID: 594683823

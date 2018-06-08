@@ -14,6 +14,13 @@ public static class SongToBePlayed  {
         }
         set
         {
+            if (m_songInfo != null && value != null && m_songInfo != value) {
+                GameObject.Find(m_songInfo.m_title).GetComponent<SongButton>().SetInactive();
+             }
+            if(value != null && m_songInfo != value)
+            {
+                GameObject.Find(value.m_title).GetComponent<SongButton>().playSong();
+            }
             m_songInfo = value;
         }
     }

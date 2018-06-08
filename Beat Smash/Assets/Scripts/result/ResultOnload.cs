@@ -31,25 +31,22 @@ public class ResultOnload : MonoBehaviour {
 
         great = GameObject.Find("GreatVar").GetComponent<Text>();
         great.text = ResultStats.Great.ToString();
-        Debug.Log("Great:" + ResultStats.Great.ToString());
         good = GameObject.Find("GoodVar").GetComponent<Text>();
         good.text = ResultStats.Good.ToString();
         bad = GameObject.Find("BadVar").GetComponent<Text>();
         bad.text = ResultStats.Bad.ToString();
         miss = GameObject.Find("MissVar").GetComponent<Text>();
         miss.text = ResultStats.Miss.ToString();
-        Debug.Log("Miss:" + ResultStats.Miss.ToString());
 
         title = GameObject.Find("TitleVar").GetComponent<Text>();
-        title.text = "5";
-        length = GameObject.Find("LengthVar").GetComponent<Text>();
-        length.text = "6";
+        title.text = SongToBePlayed.songInfo.m_title;
+        //length = GameObject.Find("LengthVar").GetComponent<Text>();
+        //length.text = "6";
 
     }
 	
 
 	void Update () {
-        // TODO: change screen to menu 
         if (Input.GetKeyUp(KeyCode.Return))
         {
             SceneManager.LoadScene("menuscreen");
