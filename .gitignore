@@ -34,5 +34,5 @@ sysinfo.txt
 *.unitypackage
 
 Beat\ Smash/Assets/Resources/Sprites\.meta
-Beat\ Smash/Assets/Resources/Audio
+Beat\ Smash/Assets/Resources/Audio\.wav
 Beatmap\ Algorithm/music
