@@ -20,22 +20,18 @@ public class HitTypeDisplay : MonoBehaviour
         {
             case HitType.Great:
                 sprite = allHitTypes.Single(s => s.name == "HitType_Great");
-                Debug.Log("Sprite set great");
                 isShaking = false;
                 break;
             case HitType.Good:
                 sprite = allHitTypes.Single(s => s.name == "HitType_Good");
-                Debug.Log("Sprite set good");
                 isShaking = false;
                 break;
             case HitType.Bad:
                 sprite = allHitTypes.Single(s => s.name == "HitType_Bad");
-                Debug.Log("Sprite set bad");
                 isShaking = false;
                 break;
             case HitType.Miss:
                 sprite = allHitTypes.Single(s => s.name == "HitType_Miss");
-                Debug.Log("Sprite set miss");
                 isShaking = true;
                 break;
             default:

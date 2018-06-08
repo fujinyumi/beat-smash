@@ -119,6 +119,7 @@ public class InputReaction : MonoBehaviour {
             
             if (upcomingNotes.Count > 0)
             {
+                bool set = false;
                 BeatTarget upcoming = upcomingNotes.Peek();
                 if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_GREAT)
                 {
@@ -126,10 +127,7 @@ public class InputReaction : MonoBehaviour {
                     Onload.health.incHealth(0);
                     Debug.Log("Great");
                     hitType = HitType.Great;
-                    upcoming.DeleteMe();
-                    upcomingNotes.Dequeue();
-                    myRenderer.sprite = splatted;
-                    transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                    set = true;
                 }
                 else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_GOOD)
                 {
@@ -137,10 +135,7 @@ public class InputReaction : MonoBehaviour {
                     Onload.health.incHealth(1);
                     Debug.Log("Good");
                     hitType = HitType.Good;
-                    upcoming.DeleteMe();
-                    upcomingNotes.Dequeue();
-                    myRenderer.sprite = splatted;
-                    transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                    set = true;
                 }
                 else if (System.Math.Abs(upcoming.GetBeatInfo().GetOffset() - songPos) <= INTERVAL_BAD)
                 {
@@ -148,12 +143,16 @@ public class InputReaction : MonoBehaviour {
                     Onload.health.decHealth(1);
                     Debug.Log("Bad");
                     hitType = HitType.Bad;
+                    set = true;
+                }
+                if (set)
+                {
+                    SetHitTypeObject(upcoming.GetBeatInfo().GetLane(), hitType);
                     upcoming.DeleteMe();
                     upcomingNotes.Dequeue();
                     myRenderer.sprite = splatted;
                     transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
                 }
-                SetHitTypeObject(upcoming.GetBeatInfo().GetLane(), hitType);
             }
 
         }
