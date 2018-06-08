@@ -13,6 +13,8 @@ from madmom.features.chords import DeepChromaChordRecognitionProcessor
 from madmom.audio.chroma import DeepChromaProcessor
 from madmom.features.beats import DBNBeatTrackingProcessor
 from madmom.features.beats import RNNBeatProcessor
+from madmom.features.onsets import OnsetPeakPickingProcessor
+from madmom.features.onsets import RNNOnsetProcessor
 
 
 #Setting up Deep Chroma Chord Recognition Processor
@@ -22,9 +24,9 @@ chroma = dcp(sys.argv[1])
 chords = decode(chroma)
 
 
-#Setting up Dynamic Baysian Network Tracking Processor
-proc = DBNBeatTrackingProcessor(fps=100)
-act = RNNBeatProcessor()(sys.argv[1])
+#Setting up Onset Peak Picking Processor
+proc = OnsetPeakPickingProcessor(fps=100, threshold=0.7, pre_avg = 0.25, post_avg = 0.25, smooth = 0.1)
+act = RNNOnsetProcessor()(sys.argv[1])
 beats = proc(act)
 
 
@@ -32,12 +34,7 @@ beats = proc(act)
 beatsArray = numpy.array(beats)
 msi = numpy.mean(beatsArray[1:]-beatsArray[:-1])*1000
 
-beatmap = bmaFunctions.assignKeys(beats, chords, sys.argv[3])
-if msi < 360:
-  del beatmap[1::2]
-
 #generating and printing beatmap
-bmaFunctions.fancyPrint(beatmap, msi, sys.argv[2])
+bmaFunctions.fancyPrint(bmaFunctions.assignKeys(beats, chords, sys.argv[3]), msi, sys.argv[2])
 
 
-#TODO: eliminate trailing Ns

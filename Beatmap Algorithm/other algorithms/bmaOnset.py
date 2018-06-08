@@ -25,7 +25,7 @@ chords = decode(chroma)
 
 
 #Setting up Onset Peak Picking Processor
-proc = OnsetPeakPickingProcessor(fps=100)
+proc = OnsetPeakPickingProcessor(fps=100, threshold=0.7, pre_avg = 0.25, post_avg = 0.25, smooth = 0.01)
 act = RNNOnsetProcessor()(sys.argv[1])
 beats = proc(act)
 
