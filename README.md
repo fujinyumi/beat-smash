@@ -23,7 +23,7 @@ The rhythm game is implemented in C# with the Unity game engine. Users can load 
 
 ### Game Demo
 
-[![Beat Smash Demo](https://img.youtube.com/vi/lBA1bUy3O6I/0.jpg)]
+[![Beat Smash Demo](https://img.youtube.com/vi/lBA1bUy3O6I/0.jpg)](https://www.youtube.com/watch?v=lBA1bUy3O6I)
 View demo [here](https://www.youtube.com/watch?v=lBA1bUy3O6I)
 
 ---
